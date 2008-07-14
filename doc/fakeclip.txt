@@ -1,6 +1,6 @@
-*cygclip.txt*	pseudo clipboard register for non-GUI version of Vim on Cygwin
+*fakeclip.txt*	pseudo clipboard register for non-GUI version of Vim
 
-Version 0.1
+Version 0.2.0
 Copyright (C) 2007 kana <http://whileimautomaton.net/>
 License: MIT license  {{{
     Permission is hereby granted, free of charge, to any person obtaining
@@ -23,98 +23,114 @@ License: MIT license  {{{
     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 }}}
 
-CONTENTS					*cygclip-contents*
+CONTENTS					*fakeclip-contents*
 
-Introduction		|cygclip-introduction|
-Interface		|cygclip-interface|
-  Key Mappings		  |cygclip-key-mappings|
-Bugs			|cygclip-bugs|
-Changelog		|cygclip-changelog|
-
-
-
-
-==============================================================================
-INTRODUCTION					*cygclip-introduction*
-
-cygclip is a Vim plugin to provide pseudo clipboard register (|quotestar| or
-|quoteplus|) for non-GUI version of Vim on Cygwin.
+Introduction		|fakeclip-introduction|
+Interface		|fakeclip-interface|
+  Key Mappings		  |fakeclip-key-mappings|
+Bugs			|fakeclip-bugs|
+Changelog		|fakeclip-changelog|
 
 
 
 
 ==============================================================================
-INTERFACE					*cygclip-interface*
+INTRODUCTION					*fakeclip-introduction*
+
+Fakeclip is a Vim plugin to provide pseudo clipboard register (|quotestar| or
+|quoteplus|) for non-GUI version of Vim on the following platforms:
+
+- Cygwin
+- Mac OS X (planned)
+
+
+
+
+==============================================================================
+INTERFACE					*fakeclip-interface*
 
 ------------------------------------------------------------------------------
-KEY MAPPINGS					*cygclip-key-mappings*
+KEY MAPPINGS					*fakeclip-key-mappings*
 
-[count]<Plug>Cygclip_y{motion}			*<Plug>Cygclip_y*
-[count]<Plug>Cygclip_Y				*<Plug>Cygclip_Y*
-{Visual}<Plug>Cygclip_y				*v_<Plug>Cygclip_y*
-{Visual}<Plug>Cygclip_Y				*v_<Plug>Cygclip_Y*
-			Same as |y| or |Y|.
-			NOTE: <Plug>Cygclip_y accepts y as a motion.
+[count]<Plug>(fakeclip-y){motion}		*<Plug>(fakeclip-y)*
+[count]<Plug>(fakeclip-Y)			*<Plug>(fakeclip-Y)*
+{Visual}<Plug>(fakeclip-y)			*v_<Plug>(fakeclip-y)*
+{Visual}<Plug>(fakeclip-Y)			*v_<Plug>(fakeclip-Y)*
+			Same as |y| or |Y|, but yank into the clipboard.
 
-[count]<Plug>Cygclip_p				*<Plug>Cygclip_p*
-[count]<Plug>Cygclip_P				*<Plug>Cygclip_P*
-[count]<Plug>Cygclip_gp				*<Plug>Cygclip_gp*
-[count]<Plug>Cygclip_gP				*<Plug>Cygclip_gP*
-			Same as |p|, |P|, |gp| or |gP|.
+[count]<Plug>(fakeclip-p)			*<Plug>(fakeclip-p)*
+[count]<Plug>(fakeclip-P)			*<Plug>(fakeclip-P)*
+[count]<Plug>(fakeclip-gp)			*<Plug>(fakeclip-gp)*
+[count]<Plug>(fakeclip-gP)			*<Plug>(fakeclip-gP)*
+			Same as |p|, |P|, |gp| or |gP|, but put from the
+			clipboard.
 
-						*i_<Plug>Cygclip_insert*
-						*c_<Plug>Cygclip_insert*
-<Plug>Cygclip_insert	Insert the content of the clipboard like |i_CTRL-R|.
+						*i_<Plug>(fakeclip-insert)*
+						*c_<Plug>(fakeclip-insert)*
+<Plug>(fakeclip-insert)
+			Insert the content of the clipboard like |i_CTRL-R|.
 	
 
-					   *g:cygclip_no_default_key_mappings*
-						*Cygclip_DefaultKeymappings()*
-The following key mappings will be defined automatically (via
-Cygclip_DefaultKeymappings()).  If you don't want to define these default key
-mappings, define g:cygclip_no_default_key_mappings with any value before this
-plugin is loaded.
+					  *g:fakeclip_no_default_key_mappings*
+						*:FakeclipDefaultKeyMappings*
+Fakeclip will define the following key mappings.  If you don't want to define
+these default key mappings, define |g:fakeclip_no_default_key_mappings| before
+this plugin is loaded (e.g. in your |vimrc|).  You can also use
+|:FakeclipDefaultKeyMappings| to redefine these key mappings.  This command
+doesn't override existing {lhs}s unless [!] is given.
 
-	Normal mode and Visual mode ~
-
-		"+y{motion}	"*y{motion}	(Normal mode only)
-		"+y		"*y		(Visual mode only)
-		"+Y		"*Y
-
-		"+p		"*p
-		"+P		"*P
-		"+gp		"*gp
-		"+gP		"*gP
-
-	Insert mode and Command-line mode ~
-
-		<C-r>+		<C-r>*
+	modes	{lhs}	{rhs}			~
+	-----	------	-----------------------	~
+	nv	"+y	<Plug>(fakeclip-y)
+	nv	"*y	<Plug>(fakeclip-y)
+	nv	"+yy	<Plug>(fakeclip-Y)
+	nv	"*yy	<Plug>(fakeclip-Y)
+	nv	"+Y	<Plug>(fakeclip-Y)
+	nv	"*Y	<Plug>(fakeclip-Y)
+	nv	"+p	<Plug>(fakeclip-p)
+	nv	"*p	<Plug>(fakeclip-p)
+	nv	"+P	<Plug>(fakeclip-P)
+	nv	"*P	<Plug>(fakeclip-P)
+	nv	"+gp	<Plug>(fakeclip-gp)
+	nv	"*gp	<Plug>(fakeclip-gp)
+	nv	"+gP	<Plug>(fakeclip-gP)
+	nv	"*gP	<Plug>(fakeclip-gP)
+	ic	<C-r>+	<Plug>(fakeclip-insert)
+	ic	<C-r>*	<Plug>(fakeclip-insert)
 
 
 
 
 ==============================================================================
-BUGS						*cygclip-bugs*
+BUGS						*fakeclip-bugs*
 
-(a) The characteristic (i.e., characterwise, linewise or blockwise) of the
-clipboard content is not remembered.  It will be linewise if each line of the
-clipboard content ends with a newline, otherwise it will be characterwise.
-
-(b) Executing <Plug>Cygclip_y in Normal mode, the display of 'showcmd' is
-different from the ordinary one.
-
-(c) This plugin just provide pseudo clipboard register for ordinary editing.
+(a) This plugin just provide pseudo clipboard register for ordinary editing.
 So |getreg()|, |setreg()|, |expr-register| and other interface on clipboard
 register are not supported.
 
+(b) The characteristic (i.e., characterwise, linewise or blockwise) of the
+clipboard content is not remembered.  It will be linewise if each line of the
+clipboard content ends with a newline, otherwise it will be characterwise.
+
+(c) Executing <Plug>(fakeclip-y) in Normal mode, the display of 'showcmd' is
+different from the ordinary one.
+
+(d) <Plug>(fakeclip-y) in Normal mode doesn't accept "y" as a linewise
+{motion} like the built-in |y|.
+
 
 
 
 ==============================================================================
-CHANGELOG					*cygclip-changelog*
+CHANGELOG					*fakeclip-changelog*
+
+0.2.0	2008-07-14T14:09:49+09:00
+	- Rename as "fakeclip" (the old name is "cygclip").
+	- Support Mac OS X.
 
 0.1	2007-12-27T22:47:34+09:00
 	- Modify to automatically define the default key mappings as this
-	  plugin is loaded.  See |g:cygclip_no_default_key_mappings| for how
+	  plugin is loaded.  See |g:fakeclip_no_default_key_mappings| for how
 	  to suppress this behavior.
 
 0.0	2007-08-13
