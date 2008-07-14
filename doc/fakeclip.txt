@@ -1,0 +1,127 @@
+*cygclip.txt*	pseudo clipboard register for non-GUI version of Vim on Cygwin
+
+Version 0.1
+Copyright (C) 2007 kana <http://whileimautomaton.net/>
+License: MIT license  {{{
+    Permission is hereby granted, free of charge, to any person obtaining
+    a copy of this software and associated documentation files (the
+    "Software"), to deal in the Software without restriction, including
+    without limitation the rights to use, copy, modify, merge, publish,
+    distribute, sublicense, and/or sell copies of the Software, and to
+    permit persons to whom the Software is furnished to do so, subject to
+    the following conditions:
+
+    The above copyright notice and this permission notice shall be included
+    in all copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+    OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+    IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+    CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+    TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+    SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+}}}
+
+CONTENTS					*cygclip-contents*
+
+Introduction		|cygclip-introduction|
+Interface		|cygclip-interface|
+  Key Mappings		  |cygclip-key-mappings|
+Bugs			|cygclip-bugs|
+Changelog		|cygclip-changelog|
+
+
+
+
+==============================================================================
+INTRODUCTION					*cygclip-introduction*
+
+cygclip is a Vim plugin to provide pseudo clipboard register (|quotestar| or
+|quoteplus|) for non-GUI version of Vim on Cygwin.
+
+
+
+
+==============================================================================
+INTERFACE					*cygclip-interface*
+
+------------------------------------------------------------------------------
+KEY MAPPINGS					*cygclip-key-mappings*
+
+[count]<Plug>Cygclip_y{motion}			*<Plug>Cygclip_y*
+[count]<Plug>Cygclip_Y				*<Plug>Cygclip_Y*
+{Visual}<Plug>Cygclip_y				*v_<Plug>Cygclip_y*
+{Visual}<Plug>Cygclip_Y				*v_<Plug>Cygclip_Y*
+			Same as |y| or |Y|.
+			NOTE: <Plug>Cygclip_y accepts y as a motion.
+
+[count]<Plug>Cygclip_p				*<Plug>Cygclip_p*
+[count]<Plug>Cygclip_P				*<Plug>Cygclip_P*
+[count]<Plug>Cygclip_gp				*<Plug>Cygclip_gp*
+[count]<Plug>Cygclip_gP				*<Plug>Cygclip_gP*
+			Same as |p|, |P|, |gp| or |gP|.
+
+						*i_<Plug>Cygclip_insert*
+						*c_<Plug>Cygclip_insert*
+<Plug>Cygclip_insert	Insert the content of the clipboard like |i_CTRL-R|.
+	
+
+					   *g:cygclip_no_default_key_mappings*
+						*Cygclip_DefaultKeymappings()*
+The following key mappings will be defined automatically (via
+Cygclip_DefaultKeymappings()).  If you don't want to define these default key
+mappings, define g:cygclip_no_default_key_mappings with any value before this
+plugin is loaded.
+
+	Normal mode and Visual mode ~
+
+		"+y{motion}	"*y{motion}	(Normal mode only)
+		"+y		"*y		(Visual mode only)
+		"+Y		"*Y
+
+		"+p		"*p
+		"+P		"*P
+		"+gp		"*gp
+		"+gP		"*gP
+
+	Insert mode and Command-line mode ~
+
+		<C-r>+		<C-r>*
+
+
+
+
+==============================================================================
+BUGS						*cygclip-bugs*
+
+(a) The characteristic (i.e., characterwise, linewise or blockwise) of the
+clipboard content is not remembered.  It will be linewise if each line of the
+clipboard content ends with a newline, otherwise it will be characterwise.
+
+(b) Executing <Plug>Cygclip_y in Normal mode, the display of 'showcmd' is
+different from the ordinary one.
+
+(c) This plugin just provide pseudo clipboard register for ordinary editing.
+So |getreg()|, |setreg()|, |expr-register| and other interface on clipboard
+register are not supported.
+
+
+
+
+==============================================================================
+CHANGELOG					*cygclip-changelog*
+
+0.1	2007-12-27T22:47:34+09:00
+	- Modify to automatically define the default key mappings as this
+	  plugin is loaded.  See |g:cygclip_no_default_key_mappings| for how
+	  to suppress this behavior.
+
+0.0	2007-08-13
+	- First release.
+
+
+
+
+==============================================================================
+vim:tw=78:ts=8:ft=help:norl:fdm=marker:
