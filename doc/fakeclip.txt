@@ -83,10 +83,10 @@ doesn't override existing {lhs}s unless [!] is given.
 	-----	------	-----------------------	~
 	nv	"+y	<Plug>(fakeclip-y)
 	nv	"*y	<Plug>(fakeclip-y)
-	nv	"+yy	<Plug>(fakeclip-Y)
-	nv	"*yy	<Plug>(fakeclip-Y)
+	n	"+yy	<Plug>(fakeclip-Y)
 	nv	"+Y	<Plug>(fakeclip-Y)
 	nv	"*Y	<Plug>(fakeclip-Y)
+	n	"*yy	<Plug>(fakeclip-Y)
 	nv	"+p	<Plug>(fakeclip-p)
 	nv	"*p	<Plug>(fakeclip-p)
 	nv	"+P	<Plug>(fakeclip-P)
