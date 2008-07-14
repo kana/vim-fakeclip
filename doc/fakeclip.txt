@@ -127,6 +127,7 @@ CHANGELOG					*fakeclip-changelog*
 0.2.0	2008-07-14T14:09:49+09:00
 	- Rename as "fakeclip" (the old name is "cygclip").
 	- Support Mac OS X.
+	- Autoloaded.
 
 0.1	2007-12-27T22:47:34+09:00
 	- Modify to automatically define the default key mappings as this
