@@ -41,7 +41,7 @@ Fakeclip is a Vim plugin to provide pseudo clipboard register (|quotestar| or
 |quoteplus|) for non-GUI version of Vim on the following platforms:
 
 - Cygwin
-- Mac OS X (planned)
+- Mac OS X
 
 
 
