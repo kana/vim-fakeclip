@@ -74,7 +74,9 @@ endfunction
 
 
 function! fakeclip#content()
-  if s:PLATFORM ==# 'cygwin'
+  if s:PLATFORM ==# 'mac'
+    return system('pbpaste')
+  elseif s:PLATFORM ==# 'cygwin'
     let content = ''
     for line in readfile('/dev/clipboard', 'b')
       let content = content . "\x0A" . substitute(line, "\x0D", '', 'g')
@@ -132,7 +134,9 @@ endfunction
 
 
 function! s:yank_into_clipboard(text)
-  if s:PLATFORM ==# 'cygwin'
+  if s:PLATFORM ==# 'mac'
+    call system('pbcopy', a:text)
+  elseif s:PLATFORM ==# 'cygwin'
     call writefile(split(a:text, "\x0A", 1), '/dev/clipboard', 'b')
   else
     echoerr 'Yanking into the clipboard is not supported on this platform.'
