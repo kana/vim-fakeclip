@@ -44,6 +44,10 @@ or |quoteplus|) for non-GUI version of Vim on the following platforms:
 - Mac OS X
 
 
+Requirements:
+- Vim 7.0 or later
+
+
 
 
 ==============================================================================
