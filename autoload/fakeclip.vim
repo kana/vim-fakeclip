@@ -39,7 +39,7 @@ endif
 
 
 " Interface  "{{{1
-function! fakeclip#yank(motion_type)
+function! fakeclip#clipboard_yank(motion_type)
   let r0 = s:save_register('0')
 
   call s:select_last_motion(a:motion_type)
@@ -49,7 +49,7 @@ function! fakeclip#yank(motion_type)
   call s:restore_register('0', r0)
 endfunction
 
-function! fakeclip#yank_Y()
+function! fakeclip#clipboard_yank_Y()
   let diff = s:count() - 1
   normal! V
   if 0 < diff
@@ -59,9 +59,9 @@ function! fakeclip#yank_Y()
 endfunction
 
 
-function! fakeclip#put(motion_type, put_type)
+function! fakeclip#clipboard_put(motion_type, put_type)
   let r_ = s:save_register('"')
-  let @@ = fakeclip#content()
+  let @@ = fakeclip#clipboard_content()
 
   if a:motion_type == ''
     execute 'normal!' s:count().a:put_type
@@ -73,7 +73,7 @@ function! fakeclip#put(motion_type, put_type)
 endfunction
 
 
-function! fakeclip#content()
+function! fakeclip#clipboard_content()
   if s:PLATFORM ==# 'mac'
     return system('pbpaste')
   elseif s:PLATFORM ==# 'cygwin'

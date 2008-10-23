@@ -38,33 +38,33 @@ endif
 " Interface key mappings  "{{{2
 
 nnoremap <silent> <Plug>(fakeclip-y)
-\ :<C-u>set operatorfunc=fakeclip#yank<Return>g@
+\ :<C-u>set operatorfunc=fakeclip#clipboard_yank<Return>g@
 vnoremap <silent> <Plug>(fakeclip-y)
-\ :<C-u>call fakeclip#yank(visualmode())<Return>
+\ :<C-u>call fakeclip#clipboard_yank(visualmode())<Return>
 nnoremap <silent> <Plug>(fakeclip-Y)
-\ :<C-u>call fakeclip#yank_Y()<Return>
+\ :<C-u>call fakeclip#clipboard_yank_Y()<Return>
 vnoremap <silent> <Plug>(fakeclip-Y)
-\ :<C-u>call fakeclip#yank('V')<Return>
+\ :<C-u>call fakeclip#clipboard_yank('V')<Return>
 
 nnoremap <silent> <Plug>(fakeclip-p)
-\ :<C-u>call fakeclip#put('', 'p')<Return>
+\ :<C-u>call fakeclip#clipboard_put('', 'p')<Return>
 nnoremap <silent> <Plug>(fakeclip-P)
-\ :<C-u>call fakeclip#put('', 'P')<Return>
+\ :<C-u>call fakeclip#clipboard_put('', 'P')<Return>
 nnoremap <silent> <Plug>(fakeclip-gp)
-\ :<C-u>call fakeclip#put('', 'gp')<Return>
+\ :<C-u>call fakeclip#clipboard_put('', 'gp')<Return>
 nnoremap <silent> <Plug>(fakeclip-gP)
-\ :<C-u>call fakeclip#put('', 'gP')<Return>
+\ :<C-u>call fakeclip#clipboard_put('', 'gP')<Return>
 vnoremap <silent> <Plug>(fakeclip-p)
-\ :<C-u>call fakeclip#put(visualmode(), 'p')<Return>
+\ :<C-u>call fakeclip#clipboard_put(visualmode(), 'p')<Return>
 vnoremap <silent> <Plug>(fakeclip-P)
-\ :<C-u>call fakeclip#put(visualmode(), 'P')<Return>
+\ :<C-u>call fakeclip#clipboard_put(visualmode(), 'P')<Return>
 vnoremap <silent> <Plug>(fakeclip-gp)
-\ :<C-u>call fakeclip#put(visualmode(), 'gp')<Return>
+\ :<C-u>call fakeclip#clipboard_put(visualmode(), 'gp')<Return>
 vnoremap <silent> <Plug>(fakeclip-gP)
-\ :<C-u>call fakeclip#put(visualmode(), 'gP')<Return>
+\ :<C-u>call fakeclip#clipboard_put(visualmode(), 'gP')<Return>
 
-inoremap <Plug>(fakeclip-insert)  <C-r>=fakeclip#content()<Return>
-cnoremap <Plug>(fakeclip-insert)  <C-r>=fakeclip#content()<Return>
+inoremap <Plug>(fakeclip-insert)  <C-r>=fakeclip#clipboard_content()<Return>
+cnoremap <Plug>(fakeclip-insert)  <C-r>=fakeclip#clipboard_content()<Return>
 
 
 
