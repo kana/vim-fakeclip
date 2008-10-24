@@ -39,7 +39,7 @@ endif
 
 
 " Interface  "{{{1
-function! fakeclip#clipboard_yank(motion_type)
+function! fakeclip#clipboard_yank(motion_type)  "{{{2
   let r0 = s:save_register('0')
 
   call s:select_last_motion(a:motion_type)
@@ -49,7 +49,10 @@ function! fakeclip#clipboard_yank(motion_type)
   call s:restore_register('0', r0)
 endfunction
 
-function! fakeclip#clipboard_yank_Y()
+
+
+
+function! fakeclip#clipboard_yank_Y()  "{{{2
   let diff = s:count() - 1
   normal! V
   if 0 < diff
@@ -59,7 +62,9 @@ function! fakeclip#clipboard_yank_Y()
 endfunction
 
 
-function! fakeclip#clipboard_put(motion_type, put_type)
+
+
+function! fakeclip#clipboard_put(motion_type, put_type)  "{{{2
   let r_ = s:save_register('"')
   let @@ = fakeclip#clipboard_content()
 
@@ -73,7 +78,9 @@ function! fakeclip#clipboard_put(motion_type, put_type)
 endfunction
 
 
-function! fakeclip#clipboard_content()
+
+
+function! fakeclip#clipboard_content()  "{{{2
   if s:PLATFORM ==# 'mac'
     return system('pbpaste')
   elseif s:PLATFORM ==# 'cygwin'
@@ -96,8 +103,7 @@ endfunction
 
 
 " Misc.  "{{{1
-
-function! s:select_last_motion(motion_type)
+function! s:select_last_motion(motion_type)  "{{{2
   let orig_selection = &selection
   let &selection = 'inclusive'
 
@@ -115,25 +121,34 @@ function! s:select_last_motion(motion_type)
 endfunction
 
 
-function! s:count()
+
+
+function! s:count()  "{{{2
   " true#
   return (v:count == v:count1) ? v:count : ''
 endfunction
 
 
-function! s:save_register(regname)
+
+
+function! s:save_register(regname)  "{{{2
   " true#
   return [getreg(a:regname), getregtype(a:regname)]
 endfunction
 
-function! s:restore_register(regname, reginfo)
+
+
+
+function! s:restore_register(regname, reginfo)  "{{{2
   " true#
   call setreg(a:regname, a:reginfo[0], a:reginfo[1])
   return
 endfunction
 
 
-function! s:yank_into_clipboard(text)
+
+
+function! s:yank_into_clipboard(text)  "{{{2
   if s:PLATFORM ==# 'mac'
     call system('pbcopy', a:text)
   elseif s:PLATFORM ==# 'cygwin'
