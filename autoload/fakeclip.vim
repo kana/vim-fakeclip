@@ -104,7 +104,6 @@ endfunction
 
 " Misc.  "{{{1
 function! s:count()  "{{{2
-  " true#
   return (v:count == v:count1) ? v:count : ''
 endfunction
 
@@ -112,7 +111,6 @@ endfunction
 
 
 function! s:restore_register(regname, reginfo)  "{{{2
-  " true#
   call setreg(a:regname, a:reginfo[0], a:reginfo[1])
   return
 endfunction
@@ -121,7 +119,6 @@ endfunction
 
 
 function! s:save_register(regname)  "{{{2
-  " true#
   return [getreg(a:regname), getregtype(a:regname)]
 endfunction
 
