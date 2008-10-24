@@ -93,31 +93,55 @@ endfunction
 
 " Core  "{{{1
 function! s:clipboard_read()  "{{{2
-  if s:PLATFORM ==# 'mac'
-    return system('pbpaste')
-  elseif s:PLATFORM ==# 'cygwin'
-    let content = ''
-    for line in readfile('/dev/clipboard', 'b')
-      let content = content . "\x0A" . substitute(line, "\x0D", '', 'g')
-    endfor
-    return content[1:]
-  else
-    echoerr 'Getting the clipboard content is not supported on this platform.'
-    return ''
-  endif
+  return s:clipboard_read_{s:PLATFORM}()
+endfunction
+
+
+function! s:clipboard_read_mac()
+  return system('pbpaste')
+endfunction
+
+
+function! s:clipboard_read_cygwin()
+  let content = ''
+  for line in readfile('/dev/clipboard', 'b')
+    let content = content . "\x0A" . substitute(line, "\x0D", '', 'g')
+  endfor
+  return content[1:]
+endfunction
+
+
+function! s:clipboard_read_unknown()
+  echoerr 'Getting the clipboard content is not supported on this platform:'
+  \       s:PLATFORM
+  return ''
 endfunction
 
 
 
 
 function! s:clipboard_write(text)  "{{{2
-  if s:PLATFORM ==# 'mac'
-    call system('pbcopy', a:text)
-  elseif s:PLATFORM ==# 'cygwin'
-    call writefile(split(a:text, "\x0A", 1), '/dev/clipboard', 'b')
-  else
-    echoerr 'Yanking into the clipboard is not supported on this platform.'
-  endif
+  call s:clipboard_write_{s:PLATFORM}(a:text)
+  return
+endfunction
+
+
+function! s:clipboard_write_mac(text)
+  call system('pbcopy', a:text)
+  return
+endfunction
+
+
+function! s:clipboard_write_cygwin(text)
+  call writefile(split(a:text, "\x0A", 1), '/dev/clipboard', 'b')
+  return
+endfunction
+
+
+function! s:clipboard_write_unknown(text)
+  echoerr 'Yanking into the clipboard is not supported on this platform:'
+  \       s:PLATFORM
+  return
 endfunction
 
 
