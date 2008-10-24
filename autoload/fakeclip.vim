@@ -39,6 +39,40 @@ endif
 
 
 " Interface  "{{{1
+function! fakeclip#clipboard_content()  "{{{2
+  if s:PLATFORM ==# 'mac'
+    return system('pbpaste')
+  elseif s:PLATFORM ==# 'cygwin'
+    let content = ''
+    for line in readfile('/dev/clipboard', 'b')
+      let content = content . "\x0A" . substitute(line, "\x0D", '', 'g')
+    endfor
+    return content[1:]
+  else
+    echoerr 'Getting the clipboard content is not supported on this platform.'
+    return ''
+  endif
+endfunction
+
+
+
+
+function! fakeclip#clipboard_put(motion_type, put_type)  "{{{2
+  let r_ = s:save_register('"')
+  let @@ = fakeclip#clipboard_content()
+
+  if a:motion_type == ''
+    execute 'normal!' s:count().a:put_type
+    call s:restore_register('"', r_)
+  else
+    call s:select_last_motion(a:motion_type)
+    execute 'normal!' s:count().a:put_type
+  endif
+endfunction
+
+
+
+
 function! fakeclip#clipboard_yank(motion_type)  "{{{2
   let r0 = s:save_register('0')
 
@@ -64,45 +98,36 @@ endfunction
 
 
 
-function! fakeclip#clipboard_put(motion_type, put_type)  "{{{2
-  let r_ = s:save_register('"')
-  let @@ = fakeclip#clipboard_content()
-
-  if a:motion_type == ''
-    execute 'normal!' s:count().a:put_type
-    call s:restore_register('"', r_)
-  else
-    call s:select_last_motion(a:motion_type)
-    execute 'normal!' s:count().a:put_type
-  endif
-endfunction
-
-
-
-
-function! fakeclip#clipboard_content()  "{{{2
-  if s:PLATFORM ==# 'mac'
-    return system('pbpaste')
-  elseif s:PLATFORM ==# 'cygwin'
-    let content = ''
-    for line in readfile('/dev/clipboard', 'b')
-      let content = content . "\x0A" . substitute(line, "\x0D", '', 'g')
-    endfor
-    return content[1:]
-  else
-    echoerr 'Getting the clipboard content is not supported on this platform.'
-    return ''
-  endif
-endfunction
-
-
-
-
 
 
 
 
 " Misc.  "{{{1
+function! s:count()  "{{{2
+  " true#
+  return (v:count == v:count1) ? v:count : ''
+endfunction
+
+
+
+
+function! s:restore_register(regname, reginfo)  "{{{2
+  " true#
+  call setreg(a:regname, a:reginfo[0], a:reginfo[1])
+  return
+endfunction
+
+
+
+
+function! s:save_register(regname)  "{{{2
+  " true#
+  return [getreg(a:regname), getregtype(a:regname)]
+endfunction
+
+
+
+
 function! s:select_last_motion(motion_type)  "{{{2
   let orig_selection = &selection
   let &selection = 'inclusive'
@@ -118,31 +143,6 @@ function! s:select_last_motion(motion_type)  "{{{2
   endif
 
   let &selection = orig_selection
-endfunction
-
-
-
-
-function! s:count()  "{{{2
-  " true#
-  return (v:count == v:count1) ? v:count : ''
-endfunction
-
-
-
-
-function! s:save_register(regname)  "{{{2
-  " true#
-  return [getreg(a:regname), getregtype(a:regname)]
-endfunction
-
-
-
-
-function! s:restore_register(regname, reginfo)  "{{{2
-  " true#
-  call setreg(a:regname, a:reginfo[0], a:reginfo[1])
-  return
 endfunction
 
 
