@@ -44,6 +44,10 @@ or |quoteplus|) for non-GUI version of Vim on the following platforms:
 - Cygwin
 - Mac OS X
 
+fakeclip also supports the following stuff as a pseudo register:
+
+- GNU screen (the paste buffer)
+
 
 Requirements:
 - Vim 7.0 or later
@@ -69,11 +73,27 @@ KEY MAPPINGS					*fakeclip-key-mappings*
 [count]<Plug>(fakeclip-gP)			*<Plug>(fakeclip-gP)*
 			Same as |p|, |P|, |gp| or |gP|, but put from the
 			clipboard.
-
 						*i_<Plug>(fakeclip-insert)*
-						*c_<Plug>(fakeclip-insert)*
-<Plug>(fakeclip-insert)
+<Plug>(fakeclip-insert)				*c_<Plug>(fakeclip-insert)*
 			Insert the content of the clipboard like |i_CTRL-R|.
+
+[count]<Plug>(fakeclip-screen-y){motion}	*<Plug>(fakeclip-screen-y)*
+[count]<Plug>(fakeclip-screen-Y)		*<Plug>(fakeclip-screen-Y)*
+{Visual}<Plug>(fakeclip-screen-y)		*v_<Plug>(fakeclip-screen-y)*
+{Visual}<Plug>(fakeclip-screen-Y)		*v_<Plug>(fakeclip-screen-Y)*
+			Same as |y| or |Y|, but yank into the paste buffer of
+			GNU screen.
+
+[count]<Plug>(fakeclip-screen-p)		*<Plug>(fakeclip-screen-p)*
+[count]<Plug>(fakeclip-screen-P)		*<Plug>(fakeclip-screen-P)*
+[count]<Plug>(fakeclip-screen-gp)		*<Plug>(fakeclip-screen-gp)*
+[count]<Plug>(fakeclip-screen-gP)		*<Plug>(fakeclip-screen-gP)*
+			Same as |p|, |P|, |gp| or |gP|, but put from the paste
+			buffer of the GNU screen.
+					    *i_<Plug>(fakeclip-screen-insert)*
+<Plug>(fakeclip-screen-insert)		    *c_<Plug>(fakeclip-screen-insert)*
+			Insert the content of the paste buffer of the GNU
+			screen like |i_CTRL-R|.
 	
 
 					  *g:fakeclip_no_default_key_mappings*
@@ -89,9 +109,9 @@ doesn't override existing {lhs}s unless [!] is given.
 	nv	"+y	<Plug>(fakeclip-y)
 	nv	"*y	<Plug>(fakeclip-y)
 	n	"+yy	<Plug>(fakeclip-Y)
+	n	"*yy	<Plug>(fakeclip-Y)
 	nv	"+Y	<Plug>(fakeclip-Y)
 	nv	"*Y	<Plug>(fakeclip-Y)
-	n	"*yy	<Plug>(fakeclip-Y)
 	nv	"+p	<Plug>(fakeclip-p)
 	nv	"*p	<Plug>(fakeclip-p)
 	nv	"+P	<Plug>(fakeclip-P)
@@ -102,6 +122,14 @@ doesn't override existing {lhs}s unless [!] is given.
 	nv	"*gP	<Plug>(fakeclip-gP)
 	ic	<C-r>+	<Plug>(fakeclip-insert)
 	ic	<C-r>*	<Plug>(fakeclip-insert)
+	nv	"&y	<Plug>(fakeclip-screen-y)
+	n	"&yy	<Plug>(fakeclip-screen-Y)
+	nv	"&Y	<Plug>(fakeclip-screen-Y)
+	nv	"&p	<Plug>(fakeclip-screen-p)
+	nv	"&P	<Plug>(fakeclip-screen-P)
+	nv	"&gp	<Plug>(fakeclip-screen-gp)
+	nv	"&gP	<Plug>(fakeclip-screen-gP)
+	ic	<C-r>&	<Plug>(fakeclip-screen-insert)
 
 
 
@@ -137,6 +165,10 @@ http://developer.apple.com/documentation/CoreFoundation/Reference/CFStringRef/
 
 ==============================================================================
 CHANGELOG					*fakeclip-changelog*
+
+0.2.1	2008-10-24T16:18:32+09:00
+	- Refactor.
+	- Support the paste buffer of GNU screen as a pseudo register.
 
 0.2.0	2008-07-14T14:09:49+09:00
 	- Rename as "fakeclip" (the old name is "cygclip").

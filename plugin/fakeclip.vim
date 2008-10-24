@@ -40,31 +40,63 @@ endif
 nnoremap <silent> <Plug>(fakeclip-y)
 \ :<C-u>set operatorfunc=fakeclip#clipboard_yank<Return>g@
 vnoremap <silent> <Plug>(fakeclip-y)
-\ :<C-u>call fakeclip#clipboard_yank(visualmode())<Return>
+\ :<C-u>call fakeclip#yank('clipboard', visualmode())<Return>
 nnoremap <silent> <Plug>(fakeclip-Y)
-\ :<C-u>call fakeclip#clipboard_yank_Y()<Return>
+\ :<C-u>call fakeclip#yank_Y('clipboard')<Return>
 vnoremap <silent> <Plug>(fakeclip-Y)
-\ :<C-u>call fakeclip#clipboard_yank('V')<Return>
+\ :<C-u>call fakeclip#yank('clipboard', 'V')<Return>
 
 nnoremap <silent> <Plug>(fakeclip-p)
-\ :<C-u>call fakeclip#clipboard_put('', 'p')<Return>
+\ :<C-u>call fakeclip#put('clipboard', '', 'p')<Return>
 nnoremap <silent> <Plug>(fakeclip-P)
-\ :<C-u>call fakeclip#clipboard_put('', 'P')<Return>
+\ :<C-u>call fakeclip#put('clipboard', '', 'P')<Return>
 nnoremap <silent> <Plug>(fakeclip-gp)
-\ :<C-u>call fakeclip#clipboard_put('', 'gp')<Return>
+\ :<C-u>call fakeclip#put('clipboard', '', 'gp')<Return>
 nnoremap <silent> <Plug>(fakeclip-gP)
-\ :<C-u>call fakeclip#clipboard_put('', 'gP')<Return>
+\ :<C-u>call fakeclip#put('clipboard', '', 'gP')<Return>
 vnoremap <silent> <Plug>(fakeclip-p)
-\ :<C-u>call fakeclip#clipboard_put(visualmode(), 'p')<Return>
+\ :<C-u>call fakeclip#put('clipboard', visualmode(), 'p')<Return>
 vnoremap <silent> <Plug>(fakeclip-P)
-\ :<C-u>call fakeclip#clipboard_put(visualmode(), 'P')<Return>
+\ :<C-u>call fakeclip#put('clipboard', visualmode(), 'P')<Return>
 vnoremap <silent> <Plug>(fakeclip-gp)
-\ :<C-u>call fakeclip#clipboard_put(visualmode(), 'gp')<Return>
+\ :<C-u>call fakeclip#put('clipboard', visualmode(), 'gp')<Return>
 vnoremap <silent> <Plug>(fakeclip-gP)
-\ :<C-u>call fakeclip#clipboard_put(visualmode(), 'gP')<Return>
+\ :<C-u>call fakeclip#put('clipboard', visualmode(), 'gP')<Return>
 
-inoremap <Plug>(fakeclip-insert)  <C-r>=fakeclip#clipboard_content()<Return>
-cnoremap <Plug>(fakeclip-insert)  <C-r>=fakeclip#clipboard_content()<Return>
+inoremap <Plug>(fakeclip-insert)  <C-r>=fakeclip#content('clipboard')<Return>
+cnoremap <Plug>(fakeclip-insert)  <C-r>=fakeclip#content('clipboard')<Return>
+
+
+nnoremap <silent> <Plug>(fakeclip-screen-y)
+\ :<C-u>set operatorfunc=fakeclip#screen_yank<Return>g@
+vnoremap <silent> <Plug>(fakeclip-screen-y)
+\ :<C-u>call fakeclip#yank('screen', visualmode())<Return>
+nnoremap <silent> <Plug>(fakeclip-screen-Y)
+\ :<C-u>call fakeclip#yank_Y('screen')<Return>
+vnoremap <silent> <Plug>(fakeclip-screen-Y)
+\ :<C-u>call fakeclip#yank('screen', 'V')<Return>
+
+nnoremap <silent> <Plug>(fakeclip-screen-p)
+\ :<C-u>call fakeclip#put('screen', '', 'p')<Return>
+nnoremap <silent> <Plug>(fakeclip-screen-P)
+\ :<C-u>call fakeclip#put('screen', '', 'P')<Return>
+nnoremap <silent> <Plug>(fakeclip-screen-gp)
+\ :<C-u>call fakeclip#put('screen', '', 'gp')<Return>
+nnoremap <silent> <Plug>(fakeclip-screen-gP)
+\ :<C-u>call fakeclip#put('screen', '', 'gP')<Return>
+vnoremap <silent> <Plug>(fakeclip-screen-p)
+\ :<C-u>call fakeclip#put('screen', visualmode(), 'p')<Return>
+vnoremap <silent> <Plug>(fakeclip-screen-P)
+\ :<C-u>call fakeclip#put('screen', visualmode(), 'P')<Return>
+vnoremap <silent> <Plug>(fakeclip-screen-gp)
+\ :<C-u>call fakeclip#put('screen', visualmode(), 'gp')<Return>
+vnoremap <silent> <Plug>(fakeclip-screen-gP)
+\ :<C-u>call fakeclip#put('screen', visualmode(), 'gP')<Return>
+
+inoremap <Plug>(fakeclip-screen-insert)
+\ <C-r>=fakeclip#content('screen')<Return>
+cnoremap <Plug>(fakeclip-screen-insert)
+\   <C-r>=fakeclip#content('screen')<Return>
 
 
 
@@ -75,6 +107,7 @@ command! -bang -bar -nargs=0 FakeclipDefaultKeyMappings
 \ call s:cmd_FakeclipDefaultKeyMappings()
 
 function! s:cmd_FakeclipDefaultKeyMappings()
+  " Clipboard
   for _ in ['+', '*']
     execute 'nmap "'._.'y  <Plug>(fakeclip-y)'
     execute 'nmap "'._.'Y  <Plug>(fakeclip-Y)'
@@ -94,6 +127,25 @@ function! s:cmd_FakeclipDefaultKeyMappings()
     execute 'imap <C-r>'._.'  <Plug>(fakeclip-insert)'
     execute 'cmap <C-r>'._.'  <Plug>(fakeclip-insert)'
   endfor
+
+  " GNU screen
+  nmap "&y  <Plug>(fakeclip-screen-y)
+  nmap "&Y  <Plug>(fakeclip-screen-Y)
+  nmap "&yy  <Plug>(fakeclip-screen-Y)
+  vmap "&y  <Plug>(fakeclip-screen-y)
+  vmap "&Y  <Plug>(fakeclip-screen-Y)
+
+  nmap "&p  <Plug>(fakeclip-screen-p)
+  nmap "&P  <Plug>(fakeclip-screen-P)
+  nmap "&gp  <Plug>(fakeclip-screen-gp)
+  nmap "&gP  <Plug>(fakeclip-screen-gP)
+  vmap "&p  <Plug>(fakeclip-screen-p)
+  vmap "&P  <Plug>(fakeclip-screen-P)
+  vmap "&gp  <Plug>(fakeclip-screen-gp)
+  vmap "&gP  <Plug>(fakeclip-screen-gP)
+
+  imap <C-r>&  <Plug>(fakeclip-screen-insert)
+  cmap <C-r>&  <Plug>(fakeclip-screen-insert)
 endfunction
 
 if !exists('g:fakeclip_no_default_key_mappings')

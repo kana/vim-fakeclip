@@ -32,6 +32,10 @@ else
 endif
 
 
+call system('which screen')  " FIXME: Non *nix platform
+let s:SCREEN_AVAILABLE_P = v:shell_error == 0
+
+
 
 
 
@@ -39,16 +43,23 @@ endif
 
 
 " Interface  "{{{1
-function! fakeclip#clipboard_content()  "{{{2
-  return s:clipboard_read()
+function! fakeclip#clipboard_yank(motion_type)  "{{{2
+  return fakeclip#yank('clipboard', a:motion_type)
 endfunction
 
 
 
 
-function! fakeclip#clipboard_put(motion_type, put_type)  "{{{2
+function! fakeclip#content(system_type)  "{{{2
+  return s:read_{a:system_type}()
+endfunction
+
+
+
+
+function! fakeclip#put(system_type, motion_type, put_type)  "{{{2
   let r_ = s:save_register('"')
-  let @@ = fakeclip#clipboard_content()
+  let @@ = fakeclip#content(a:system_type)
 
   if a:motion_type == ''
     execute 'normal!' s:count().a:put_type
@@ -62,12 +73,19 @@ endfunction
 
 
 
-function! fakeclip#clipboard_yank(motion_type)  "{{{2
+function! fakeclip#screen_yank(motion_type)  "{{{2
+  return fakeclip#yank('screen', a:motion_type)
+endfunction
+
+
+
+
+function! fakeclip#yank(system_type, motion_type)  "{{{2
   let r0 = s:save_register('0')
 
   call s:select_last_motion(a:motion_type)
   normal! y
-  call s:clipboard_write(@@)
+  call s:write_{a:system_type}(@@)
 
   call s:restore_register('0', r0)
 endfunction
@@ -75,13 +93,15 @@ endfunction
 
 
 
-function! fakeclip#clipboard_yank_Y()  "{{{2
+function! fakeclip#yank_Y(system_type)  "{{{2
   let diff = s:count() - 1
   normal! V
   if 0 < diff
     execute 'normal!' diff.'j'
   endif
-  execute "normal \<Plug>(fakeclip-Y)"
+  execute 'normal' (a:system_type ==# 'clipboard'
+  \                 ? "\<Plug>(fakeclip-Y)"
+  \                 : "\<Plug>(fakeclip-screen-Y)")
 endfunction
 
 
@@ -92,17 +112,17 @@ endfunction
 
 
 " Core  "{{{1
-function! s:clipboard_read()  "{{{2
-  return s:clipboard_read_{s:PLATFORM}()
+function! s:read_clipboard()  "{{{2
+  return s:read_clipboard_{s:PLATFORM}()
 endfunction
 
 
-function! s:clipboard_read_mac()
+function! s:read_clipboard_mac()
   return system('pbpaste')
 endfunction
 
 
-function! s:clipboard_read_cygwin()
+function! s:read_clipboard_cygwin()
   let content = ''
   for line in readfile('/dev/clipboard', 'b')
     let content = content . "\x0A" . substitute(line, "\x0D", '', 'g')
@@ -111,7 +131,7 @@ function! s:clipboard_read_cygwin()
 endfunction
 
 
-function! s:clipboard_read_unknown()
+function! s:read_clipboard_unknown()
   echoerr 'Getting the clipboard content is not supported on this platform:'
   \       s:PLATFORM
   return ''
@@ -120,27 +140,58 @@ endfunction
 
 
 
-function! s:clipboard_write(text)  "{{{2
-  call s:clipboard_write_{s:PLATFORM}(a:text)
+function! s:read_screen()  "{{{2
+  if s:SCREEN_AVAILABLE_P
+    let _ = tempname()
+    call system('screen -X writebuf ' . fnameescape(_))
+    let content = join(readfile(_, 'b'), "\n")
+    call delete(_)
+    return content
+  else
+    echoerr 'GNU screen is not available'
+    return ''
+  endif
+endfunction
+
+
+
+
+function! s:write_clipboard(text)  "{{{2
+  call s:write_clipboard_{s:PLATFORM}(a:text)
   return
 endfunction
 
 
-function! s:clipboard_write_mac(text)
+function! s:write_clipboard_mac(text)
   call system('pbcopy', a:text)
   return
 endfunction
 
 
-function! s:clipboard_write_cygwin(text)
+function! s:write_clipboard_cygwin(text)
   call writefile(split(a:text, "\x0A", 1), '/dev/clipboard', 'b')
   return
 endfunction
 
 
-function! s:clipboard_write_unknown(text)
+function! s:write_clipboard_unknown(text)
   echoerr 'Yanking into the clipboard is not supported on this platform:'
   \       s:PLATFORM
+  return
+endfunction
+
+
+
+
+function! s:write_screen(text)  "{{{2
+  if s:SCREEN_AVAILABLE_P
+    let _ = tempname()
+    call writefile([a:text], _, 'b')
+    call system('screen -X readbuf ' . fnameescape(_))
+    call delete(_)
+  else
+    echoerr 'GNU screen is not available'
+  endif
   return
 endfunction
 
