@@ -40,18 +40,7 @@ endif
 
 " Interface  "{{{1
 function! fakeclip#clipboard_content()  "{{{2
-  if s:PLATFORM ==# 'mac'
-    return system('pbpaste')
-  elseif s:PLATFORM ==# 'cygwin'
-    let content = ''
-    for line in readfile('/dev/clipboard', 'b')
-      let content = content . "\x0A" . substitute(line, "\x0D", '', 'g')
-    endfor
-    return content[1:]
-  else
-    echoerr 'Getting the clipboard content is not supported on this platform.'
-    return ''
-  endif
+  return s:clipboard_read()
 endfunction
 
 
@@ -78,7 +67,7 @@ function! fakeclip#clipboard_yank(motion_type)  "{{{2
 
   call s:select_last_motion(a:motion_type)
   normal! y
-  call s:yank_into_clipboard(@@)
+  call s:clipboard_write(@@)
 
   call s:restore_register('0', r0)
 endfunction
@@ -93,6 +82,42 @@ function! fakeclip#clipboard_yank_Y()  "{{{2
     execute 'normal!' diff.'j'
   endif
   execute "normal \<Plug>(fakeclip-Y)"
+endfunction
+
+
+
+
+
+
+
+
+" Core  "{{{1
+function! s:clipboard_read()  "{{{2
+  if s:PLATFORM ==# 'mac'
+    return system('pbpaste')
+  elseif s:PLATFORM ==# 'cygwin'
+    let content = ''
+    for line in readfile('/dev/clipboard', 'b')
+      let content = content . "\x0A" . substitute(line, "\x0D", '', 'g')
+    endfor
+    return content[1:]
+  else
+    echoerr 'Getting the clipboard content is not supported on this platform.'
+    return ''
+  endif
+endfunction
+
+
+
+
+function! s:clipboard_write(text)  "{{{2
+  if s:PLATFORM ==# 'mac'
+    call system('pbcopy', a:text)
+  elseif s:PLATFORM ==# 'cygwin'
+    call writefile(split(a:text, "\x0A", 1), '/dev/clipboard', 'b')
+  else
+    echoerr 'Yanking into the clipboard is not supported on this platform.'
+  endif
 endfunction
 
 
@@ -140,19 +165,6 @@ function! s:select_last_motion(motion_type)  "{{{2
   endif
 
   let &selection = orig_selection
-endfunction
-
-
-
-
-function! s:yank_into_clipboard(text)  "{{{2
-  if s:PLATFORM ==# 'mac'
-    call system('pbcopy', a:text)
-  elseif s:PLATFORM ==# 'cygwin'
-    call writefile(split(a:text, "\x0A", 1), '/dev/clipboard', 'b')
-  else
-    echoerr 'Yanking into the clipboard is not supported on this platform.'
-  endif
 endfunction
 
 
