@@ -52,6 +52,9 @@ fakeclip also supports the following stuff as a pseudo register:
 Requirements:
 - Vim 7.0 or later
 
+Latest version:
+http://github.com/kana/config/commits/vim-fakeclip
+
 
 
 
