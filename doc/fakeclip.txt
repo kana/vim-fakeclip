@@ -214,10 +214,13 @@ http://developer.apple.com/documentation/CoreFoundation/Reference/CFStringRef/
 ==============================================================================
 CHANGELOG					*fakeclip-changelog*
 
-0.2.2	2008-10-24T19:54:35+09:00
+0.2.2	2008-10-24T19:54:35+09:00/2009-03-25T21:17:25+09:00
 	- Add equivalents for the following commands:
 	  |]p|, |]P|, |[p|, |[P|, |i_CTRL-R_CTRL-R|, |i_CTRL-R_CTRL-O|,
 	  |i_CTRL-R_CTRL-P|, |c_CTRL-R_CTRL-R|, |c_CTRL-R_CTRL-O|.
+	- Fix the way to detect the current platform.  For Mac OS X, it
+	  depended on some assumptions.  Thanks for someone who wrote about
+	  this bug at the Vim Tips Wiki.
 
 0.2.1	2008-10-24T16:18:32+09:00
 	- Refactor.

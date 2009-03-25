@@ -23,7 +23,7 @@
 " }}}
 " Platform detection  "{{{1
 
-if has('macunix') || system('uname -o') =~? '^darwin'
+if has('macunix') || system('uname') =~? '^darwin'
   let s:PLATFORM = 'mac'
 elseif has('win32unix')
   let s:PLATFORM = 'cygwin'
