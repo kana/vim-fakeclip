@@ -44,9 +44,14 @@ or |quoteplus|) for non-GUI version of Vim on the following platforms:
 - Cygwin
 - Mac OS X
 
+
 fakeclip also supports the following stuff as a pseudo register:
 
 - GNU screen (the paste buffer)
+
+
+FAQ: If you can't copy/paste multibyte characters with the clipboard
+     on Mac OS X, see |fakeclip-multibyte-on-mac|.
 
 
 Requirements:
