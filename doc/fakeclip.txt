@@ -235,6 +235,13 @@ http://developer.apple.com/documentation/CoreFoundation/Reference/CFStringRef/
 ==============================================================================
 CHANGELOG					*fakeclip-changelog*
 
+0.2.3	2009-05-06T03:03:25+09:00
+	- Revise the documents on Mac OS X specific problems.  See
+	  |fakeclip-multibyte-on-mac| if you can't copy/paste with the
+	  clipboard on Mac OS X.
+	- Fix a bug that fakeclip uses wrong function to escape file-like
+	  arguments to shells.  Thanks @thinca for reporting this.
+
 0.2.2	2008-10-24T19:54:35+09:00/2009-03-25T21:17:25+09:00
 	- Add equivalents for the following commands:
 	  |]p|, |]P|, |[p|, |[P|, |i_CTRL-R_CTRL-R|, |i_CTRL-R_CTRL-O|,
