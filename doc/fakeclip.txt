@@ -225,6 +225,10 @@ http://developer.apple.com/documentation/CoreFoundation/Reference/CFStringRef/
 >
         0x1F5:0x08000100:0
 <
+(f) On Mac OS X, if you use Vim on GNU screen and you can't copy/paste text
+    with the clipboard, try installing GNU screen from MacPorts with "+darwin"
+    variants.
+
 
 
 
