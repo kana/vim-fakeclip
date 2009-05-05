@@ -198,16 +198,28 @@ different from the ordinary one.
 
 (d) <Plug>(fakeclip-y) in Normal mode doesn't accept "y" as a linewise
 {motion} like the built-in |y|.
-
+						*fakeclip-multibyte-on-mac*
 (e) On Mac OS X, you have to set a proper value to the environment variable
-__CF_USER_TEXT_ENCODING.  It caontins :-separated values and the 2nd value
-means the character encoding which is used to translate string data between
-GUI and Terminal.  For example, if you work on Terminal with UTF-8,
-the 2nd value of __CF_USER_TEXT_ENCODING must be set to "0x08000100".  See the
-following URI for the magic values to specify character encodings:
+__CF_USER_TEXT_ENCODING.  It contins :-separated values:
+
+    - The 1st value means a user id.  It must be the same as the result of the
+      following command:
+>
+          printf '0x%X\n' `id -u`
+<
+    - The 2nd value means the character encoding which is used to translate
+      string data between GUI and Terminal.  For example, if you work on
+      Terminal with UTF-8, the 2nd value of __CF_USER_TEXT_ENCODING must be
+      set to "0x08000100".  See the following URI for the magic values to
+      specify character encodings:
 
 http://developer.apple.com/documentation/CoreFoundation/Reference/CFStringRef/
 
+    For example, the valaue of __CF_USER_TEXT_ENCODING on the author's
+    environment is as follows:
+>
+        0x1F5:0x08000100:0
+<
 
 
 
