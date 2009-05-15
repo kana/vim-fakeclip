@@ -238,14 +238,14 @@ http://developer.apple.com/documentation/CoreFoundation/Reference/CFStringRef/
 ==============================================================================
 CHANGELOG					*fakeclip-changelog*
 
-0.2.3	2009-05-06T03:03:25+09:00
+0.2.3	2009-05-06T03:03:25+09:00		*fakeclip-changelog-0.2.3*
 	- Revise the documents on Mac OS X specific problems.  See
 	  |fakeclip-multibyte-on-mac| if you can't copy/paste with the
 	  clipboard on Mac OS X.
 	- Fix a bug that fakeclip uses wrong function to escape file-like
 	  arguments to shells.  Thanks @thinca for reporting this.
 
-0.2.2	2008-10-24T19:54:35+09:00/2009-03-25T21:17:25+09:00
+0.2.2	2009-03-25T21:17:25+09:00		*fakeclip-changelog-0.2.2*
 	- Add equivalents for the following commands:
 	  |]p|, |]P|, |[p|, |[P|, |i_CTRL-R_CTRL-R|, |i_CTRL-R_CTRL-O|,
 	  |i_CTRL-R_CTRL-P|, |c_CTRL-R_CTRL-R|, |c_CTRL-R_CTRL-O|.
@@ -253,21 +253,21 @@ CHANGELOG					*fakeclip-changelog*
 	  depended on some assumptions.  Thanks for someone who wrote about
 	  this bug at the Vim Tips Wiki.
 
-0.2.1	2008-10-24T16:18:32+09:00
+0.2.1	2008-10-24T16:18:32+09:00		*fakeclip-changelog-0.2.1*
 	- Refactor.
 	- Support the paste buffer of GNU screen as a pseudo register.
 
-0.2.0	2008-07-14T14:09:49+09:00
+0.2.0	2008-07-14T14:09:49+09:00		*fakeclip-changelog-0.2.0*
 	- Rename as "fakeclip" (the old name is "cygclip").
 	- Support Mac OS X.
 	- Autoloaded.
 
-0.1	2007-12-27T22:47:34+09:00
+0.1	2007-12-27T22:47:34+09:00		*fakeclip-changelog-0.1*
 	- Modify to automatically define the default key mappings as this
 	  plugin is loaded.  See |g:fakeclip_no_default_key_mappings| for how
 	  to suppress this behavior.
 
-0.0	2007-08-13
+0.0	2007-08-13				*fakeclip-changelog-0.0*
 	- First release.
 
 
