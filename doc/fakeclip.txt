@@ -238,6 +238,16 @@ http://developer.apple.com/documentation/CoreFoundation/Reference/CFStringRef/
 ==============================================================================
 CHANGELOG					*fakeclip-changelog*
 
+0.2.4	2009-06-13T18:22:01+09:00		*fakeclip-changelog-0.2.4*
+	- Revise on platforms where |+clipboard| is available:
+	  - Define all stuffs such as |fakeclip-key-mappings| on all
+	    platforms.  Without this, the pseudo register for GNU screen's
+	    paste buffer is not available if |+clipboard| is available.
+	  - |:FakeclipDefaultKeyMappings|: Don't define the default key
+	    mappings for clipboard to avoid confusion with the built-in key
+	    mappings.  For example, "*y and "+y are not mapped to
+	    |<Plug>(fakeclip-y)|.
+
 0.2.3	2009-05-06T03:03:25+09:00		*fakeclip-changelog-0.2.3*
 	- Revise the documents on Mac OS X specific problems.  See
 	  |fakeclip-multibyte-on-mac| if you can't copy/paste with the
