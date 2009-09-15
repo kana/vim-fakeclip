@@ -32,8 +32,7 @@ else
 endif
 
 
-call system('which screen')  " FIXME: Non *nix platform
-let s:SCREEN_AVAILABLE_P = v:shell_error == 0
+let s:SCREEN_AVAILABLE_P = executable('screen')
 
 
 

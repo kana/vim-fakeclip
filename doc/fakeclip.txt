@@ -238,6 +238,9 @@ http://developer.apple.com/documentation/CoreFoundation/Reference/CFStringRef/
 ==============================================================================
 CHANGELOG					*fakeclip-changelog*
 
+0.2.5	2009-09-15T21:26:06+09:00		*fakeclip-changelog-0.2.5*
+	- Revise the way to detect whether GNU screen is available or not.
+
 0.2.4	2009-06-13T18:22:01+09:00		*fakeclip-changelog-0.2.4*
 	- Revise on platforms where |+clipboard| is available:
 	  - Define all stuffs such as |fakeclip-key-mappings| on all
