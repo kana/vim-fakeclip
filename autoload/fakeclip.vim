@@ -202,6 +202,21 @@ endfunction
 
 
 " Misc.  "{{{1
+function! fakeclip#_local_variables()  "{{{2
+  return s:
+endfunction
+
+
+
+
+function! fakeclip#_sid_prefix()  "{{{2
+  nnoremap <SID>  <SID>
+  return maparg('<SID>', 'n')
+endfunction
+
+
+
+
 function! s:count()  "{{{2
   return (v:count == v:count1) ? v:count : ''
 endfunction
