@@ -90,55 +90,55 @@ inoremap <Plug>(fakeclip-insert-p)
 
 
 nnoremap <silent> <Plug>(fakeclip-screen-y)
-\ :<C-u>set operatorfunc=fakeclip#screen_yank<Return>g@
+\ :<C-u>set operatorfunc=fakeclip#pastebuffer_yank<Return>g@
 vnoremap <silent> <Plug>(fakeclip-screen-y)
-\ :<C-u>call fakeclip#yank('screen', visualmode())<Return>
+\ :<C-u>call fakeclip#yank('pastebuffer', visualmode())<Return>
 nnoremap <silent> <Plug>(fakeclip-screen-Y)
-\ :<C-u>call fakeclip#yank_Y('screen')<Return>
+\ :<C-u>call fakeclip#yank_Y('pastebuffer')<Return>
 vnoremap <silent> <Plug>(fakeclip-screen-Y)
-\ :<C-u>call fakeclip#yank('screen', 'V')<Return>
+\ :<C-u>call fakeclip#yank('pastebuffer', 'V')<Return>
 
 nnoremap <silent> <Plug>(fakeclip-screen-p)
-\ :<C-u>call fakeclip#put('screen', '', 'p')<Return>
+\ :<C-u>call fakeclip#put('pastebuffer', '', 'p')<Return>
 nnoremap <silent> <Plug>(fakeclip-screen-P)
-\ :<C-u>call fakeclip#put('screen', '', 'P')<Return>
+\ :<C-u>call fakeclip#put('pastebuffer', '', 'P')<Return>
 nnoremap <silent> <Plug>(fakeclip-screen-gp)
-\ :<C-u>call fakeclip#put('screen', '', 'gp')<Return>
+\ :<C-u>call fakeclip#put('pastebuffer', '', 'gp')<Return>
 nnoremap <silent> <Plug>(fakeclip-screen-gP)
-\ :<C-u>call fakeclip#put('screen', '', 'gP')<Return>
+\ :<C-u>call fakeclip#put('pastebuffer', '', 'gP')<Return>
 nnoremap <silent> <Plug>(fakeclip-screen-]p)
-\ :<C-u>call fakeclip#put('screen', '', ']p')<Return>
+\ :<C-u>call fakeclip#put('pastebuffer', '', ']p')<Return>
 nnoremap <silent> <Plug>(fakeclip-screen-]P)
-\ :<C-u>call fakeclip#put('screen', '', ']P')<Return>
+\ :<C-u>call fakeclip#put('pastebuffer', '', ']P')<Return>
 nnoremap <silent> <Plug>(fakeclip-screen-[p)
-\ :<C-u>call fakeclip#put('screen', '', '[p')<Return>
+\ :<C-u>call fakeclip#put('pastebuffer', '', '[p')<Return>
 nnoremap <silent> <Plug>(fakeclip-screen-[P)
-\ :<C-u>call fakeclip#put('screen', '', '[P')<Return>
+\ :<C-u>call fakeclip#put('pastebuffer', '', '[P')<Return>
 vnoremap <silent> <Plug>(fakeclip-screen-p)
-\ :<C-u>call fakeclip#put('screen', visualmode(), 'p')<Return>
+\ :<C-u>call fakeclip#put('pastebuffer', visualmode(), 'p')<Return>
 vnoremap <silent> <Plug>(fakeclip-screen-P)
-\ :<C-u>call fakeclip#put('screen', visualmode(), 'P')<Return>
+\ :<C-u>call fakeclip#put('pastebuffer', visualmode(), 'P')<Return>
 vnoremap <silent> <Plug>(fakeclip-screen-gp)
-\ :<C-u>call fakeclip#put('screen', visualmode(), 'gp')<Return>
+\ :<C-u>call fakeclip#put('pastebuffer', visualmode(), 'gp')<Return>
 vnoremap <silent> <Plug>(fakeclip-screen-gP)
-\ :<C-u>call fakeclip#put('screen', visualmode(), 'gP')<Return>
+\ :<C-u>call fakeclip#put('pastebuffer', visualmode(), 'gP')<Return>
 vnoremap <silent> <Plug>(fakeclip-screen-]p)
-\ :<C-u>call fakeclip#put('screen', visualmode(), ']p')<Return>
+\ :<C-u>call fakeclip#put('pastebuffer', visualmode(), ']p')<Return>
 vnoremap <silent> <Plug>(fakeclip-screen-]P)
-\ :<C-u>call fakeclip#put('screen', visualmode(), ']P')<Return>
+\ :<C-u>call fakeclip#put('pastebuffer', visualmode(), ']P')<Return>
 vnoremap <silent> <Plug>(fakeclip-screen-[p)
-\ :<C-u>call fakeclip#put('screen', visualmode(), '[p')<Return>
+\ :<C-u>call fakeclip#put('pastebuffer', visualmode(), '[p')<Return>
 vnoremap <silent> <Plug>(fakeclip-screen-[P)
-\ :<C-u>call fakeclip#put('screen', visualmode(), '[P')<Return>
+\ :<C-u>call fakeclip#put('pastebuffer', visualmode(), '[P')<Return>
 
 noremap! <Plug>(fakeclip-screen-insert)
-\ <C-r>=fakeclip#content('screen')<Return>
+\ <C-r>=fakeclip#content('pastebuffer')<Return>
 noremap! <Plug>(fakeclip-screen-insert-r)
-\ <C-r><C-r>=fakeclip#content('screen')<Return>
+\ <C-r><C-r>=fakeclip#content('pastebuffer')<Return>
 noremap! <Plug>(fakeclip-screen-insert-o)
-\ <C-r><C-o>=fakeclip#content('screen')<Return>
+\ <C-r><C-o>=fakeclip#content('pastebuffer')<Return>
 inoremap <Plug>(fakeclip-screen-insert-p)
-\ <C-r><C-p>=fakeclip#content('screen')<Return>
+\ <C-r><C-p>=fakeclip#content('pastebuffer')<Return>
 
 
 
@@ -182,7 +182,7 @@ function! s:cmd_FakeclipDefaultKeyMappings()
     endfor
   endif
 
-  " GNU screen
+  " Paste buffer
   nmap "&y  <Plug>(fakeclip-screen-y)
   nmap "&Y  <Plug>(fakeclip-screen-Y)
   nmap "&yy  <Plug>(fakeclip-screen-Y)

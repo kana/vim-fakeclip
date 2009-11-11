@@ -74,8 +74,8 @@ endfunction
 
 
 
-function! fakeclip#screen_yank(motion_type)  "{{{2
-  return fakeclip#yank('screen', a:motion_type)
+function! fakeclip#pastebuffer_yank(motion_type)  "{{{2
+  return fakeclip#yank('pastebuffer', a:motion_type)
 endfunction
 
 
@@ -146,7 +146,7 @@ endfunction
 
 
 
-function! s:read_screen()  "{{{2
+function! s:read_pastebuffer()  "{{{2
   if s:SCREEN_AVAILABLE_P
     let _ = tempname()
     call system('screen -X writebuf ' . shellescape(_))
@@ -200,7 +200,7 @@ endfunction
 
 
 
-function! s:write_screen(text)  "{{{2
+function! s:write_pastebuffer(text)  "{{{2
   if s:SCREEN_AVAILABLE_P
     let _ = tempname()
     call writefile([a:text], _, 'b')
