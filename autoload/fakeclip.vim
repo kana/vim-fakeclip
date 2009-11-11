@@ -36,6 +36,8 @@ endif
 
 if executable('screen') && $WINDOW != ''
   let s:TERMINAL_MULTIPLEXER_TYPE = 'gnuscreen'
+elseif executable('tmux') && $TMUX != ''
+  let s:TERMINAL_MULTIPLEXER_TYPE = 'tmux'
 else
   let s:TERMINAL_MULTIPLEXER_TYPE = 'unknown'
 endif
@@ -169,6 +171,11 @@ function! s:read_pastebuffer_gnuscreen()
 endfunction
 
 
+function! s:read_pastebuffer_tmux()
+  return system('tmux show-buffer')
+endfunction
+
+
 function! s:read_pastebuffer_unknown()
   echoerr 'Paste buffer is not available'
   return ''
@@ -220,6 +227,15 @@ function! s:write_pastebuffer_gnuscreen(lines)
   let _ = tempname()
   call writefile(a:lines, _, 'b')
   call system('screen -X readbuf ' . shellescape(_))
+  call delete(_)
+  return
+endfunction
+
+
+function! s:write_pastebuffer_tmux(lines)
+  let _ = tempname()
+  call writefile(a:lines, _, 'b')
+  call system('tmux load-buffer ' . shellescape(_))
   call delete(_)
   return
 endfunction

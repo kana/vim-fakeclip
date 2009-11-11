@@ -50,6 +50,7 @@ fakeclip also provides a pseudo register for "paste buffer" if one of the
 following applications is available:
 
 - GNU screen
+- tmux
 
 
 FAQ: If you can't copy/paste multibyte characters with the clipboard
@@ -246,6 +247,7 @@ CHANGELOG					*fakeclip-changelog*
 	- Fix a bug to yank to string with newline character into paste buffer
 	  register.
 	- Support X Window System by xclip.  (Thanks for @thinca)
+	- Support tmux.  (Thanks for @thinca)
 
 0.2.4	2009-06-13T18:22:01+09:00		*fakeclip-changelog-0.2.4*
 	- Revise on platforms where |+clipboard| is available:
