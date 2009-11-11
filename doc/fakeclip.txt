@@ -232,6 +232,8 @@ http://developer.apple.com/documentation/CoreFoundation/Reference/CFStringRef/
     with the clipboard, try installing GNU screen from MacPorts with "+darwin"
     variants.
 
+(g) There is a race condition problem to read the paste buffer of GNU screen.
+
 
 
 

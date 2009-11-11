@@ -143,6 +143,11 @@ function! s:read_screen()  "{{{2
   if s:SCREEN_AVAILABLE_P
     let _ = tempname()
     call system('screen -X writebuf ' . shellescape(_))
+      " FIXME: Here we have to wait "writebuf" for writing, because the
+      "        following readfile() may read the temporary file which is not
+      "        flushed yet -- but, how to wait?
+      " call system(printf('while ! test -f %s; do true; done',
+      " \                  shellescape(_)))
     let content = join(readfile(_, 'b'), "\n")
     call delete(_)
     return content
