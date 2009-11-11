@@ -243,6 +243,8 @@ CHANGELOG					*fakeclip-changelog*
 
 0.2.5	2009-11-11T21:51:50+09:00		*fakeclip-changelog-0.2.5*
 	- Revise the way to detect whether GNU screen is available or not.
+	- Fix a bug to yank to string with newline character into paste buffer
+	  register.
 	- Support X Window System by xclip.  (Thanks for @thinca)
 
 0.2.4	2009-06-13T18:22:01+09:00		*fakeclip-changelog-0.2.4*

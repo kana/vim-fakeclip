@@ -211,20 +211,21 @@ endfunction
 
 
 function! s:write_pastebuffer(text)  "{{{2
-  return s:write_pastebuffer_{s:TERMINAL_MULTIPLEXER_TYPE}(a:text)
+  let lines = split(a:text, '\n', !0)
+  return s:write_pastebuffer_{s:TERMINAL_MULTIPLEXER_TYPE}(lines)
 endfunction
 
 
-function! s:write_pastebuffer_gnuscreen(text)
+function! s:write_pastebuffer_gnuscreen(lines)
   let _ = tempname()
-  call writefile([a:text], _, 'b')
+  call writefile(a:lines, _, 'b')
   call system('screen -X readbuf ' . shellescape(_))
   call delete(_)
   return
 endfunction
 
 
-function! s:write_pastebuffer_unknown(text)
+function! s:write_pastebuffer_unknown(lines)
   echoerr 'GNU screen is not available'
   return
 endfunction
