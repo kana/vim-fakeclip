@@ -14,6 +14,63 @@ endfunction
 
 
 
+function s:describe__s_read_pastebuffer_gnuscreen()  "{{{1
+  It should read the paste buffer which contains empty string
+
+  call s:write('')
+  Should Call('s:read_pastebuffer_gnuscreen') ==# ''
+  Should Call('s:read_pastebuffer_gnuscreen') ==# ''
+
+  It should read the paste buffer which contains string without newline
+
+  call s:write('A')
+  Should Call('s:read_pastebuffer_gnuscreen') ==# 'A'
+  Should Call('s:read_pastebuffer_gnuscreen') ==# 'A'
+
+  It should read the paste buffer which contains single-line string
+
+  call s:write('B', '')
+  Should Call('s:read_pastebuffer_gnuscreen') ==# "B\n"
+  Should Call('s:read_pastebuffer_gnuscreen') ==# "B\n"
+
+  It should read the paste buffer which contains multi-line string
+
+  call s:write('C', 'D', '')
+  Should Call('s:read_pastebuffer_gnuscreen') ==# "C\nD\n"
+  Should Call('s:read_pastebuffer_gnuscreen') ==# "C\nD\n"
+
+  It should read the paste buffer which contains multi-line string w/o last LF
+
+  call s:write('E', 'F')
+  Should Call('s:read_pastebuffer_gnuscreen') ==# "E\nF"
+  Should Call('s:read_pastebuffer_gnuscreen') ==# "E\nF"
+endfunction
+
+
+
+
+function s:describe__s_write_pastebuffer_gnuscreen()  "{{{1
+  It should succeed
+
+  call Call('s:write_pastebuffer_gnuscreen', '')
+  Should Call('s:read_pastebuffer_gnuscreen') ==# ''
+
+  call Call('s:write_pastebuffer_gnuscreen', 'A')
+  Should Call('s:read_pastebuffer_gnuscreen') ==# 'A'
+
+  call Call('s:write_pastebuffer_gnuscreen', "B\n")
+  Should Call('s:read_pastebuffer_gnuscreen') ==# "B\n"
+
+  call Call('s:write_pastebuffer_gnuscreen', "C\nD\n")
+  Should Call('s:read_pastebuffer_gnuscreen') ==# "C\nD\n"
+
+  call Call('s:write_pastebuffer_gnuscreen', "E\nF")
+  Should Call('s:read_pastebuffer_gnuscreen') ==# "E\nF"
+endfunction
+
+
+
+
 function s:describe__s_read_pastebuffer()  "{{{1
   It should read the paste buffer which contains empty string
 

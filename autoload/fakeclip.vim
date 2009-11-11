@@ -34,7 +34,11 @@ else
 endif
 
 
-let s:SCREEN_AVAILABLE_P = executable('screen')
+if executable('screen') && $WINDOW != ''
+  let s:TERMINAL_MULTIPLEXER_TYPE = 'gnuscreen'
+else
+  let s:TERMINAL_MULTIPLEXER_TYPE = 'unknown'
+endif
 
 
 
@@ -147,21 +151,27 @@ endfunction
 
 
 function! s:read_pastebuffer()  "{{{2
-  if s:SCREEN_AVAILABLE_P
-    let _ = tempname()
-    call system('screen -X writebuf ' . shellescape(_))
-      " FIXME: Here we have to wait "writebuf" for writing, because the
-      "        following readfile() may read the temporary file which is not
-      "        flushed yet -- but, how to wait?
-      " call system(printf('while ! test -f %s; do true; done',
-      " \                  shellescape(_)))
-    let content = join(readfile(_, 'b'), "\n")
-    call delete(_)
-    return content
-  else
-    echoerr 'GNU screen is not available'
-    return ''
-  endif
+  return s:read_pastebuffer_{s:TERMINAL_MULTIPLEXER_TYPE}()
+endfunction
+
+
+function! s:read_pastebuffer_gnuscreen()
+  let _ = tempname()
+  call system('screen -X writebuf ' . shellescape(_))
+    " FIXME: Here we have to wait "writebuf" for writing, because the
+    "        following readfile() may read the temporary file which is not
+    "        flushed yet -- but, how to wait?
+    " call system(printf('while ! test -f %s; do true; done',
+    " \                  shellescape(_)))
+  let content = join(readfile(_, 'b'), "\n")
+  call delete(_)
+  return content
+endfunction
+
+
+function! s:read_pastebuffer_unknown()
+  echoerr 'Paste buffer is not available'
+  return ''
 endfunction
 
 
@@ -201,14 +211,21 @@ endfunction
 
 
 function! s:write_pastebuffer(text)  "{{{2
-  if s:SCREEN_AVAILABLE_P
-    let _ = tempname()
-    call writefile([a:text], _, 'b')
-    call system('screen -X readbuf ' . shellescape(_))
-    call delete(_)
-  else
-    echoerr 'GNU screen is not available'
-  endif
+  return s:write_pastebuffer_{s:TERMINAL_MULTIPLEXER_TYPE}(a:text)
+endfunction
+
+
+function! s:write_pastebuffer_gnuscreen(text)
+  let _ = tempname()
+  call writefile([a:text], _, 'b')
+  call system('screen -X readbuf ' . shellescape(_))
+  call delete(_)
+  return
+endfunction
+
+
+function! s:write_pastebuffer_unknown(text)
+  echoerr 'GNU screen is not available'
   return
 endfunction
 

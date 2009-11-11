@@ -10,7 +10,23 @@
 ---- It should read the paste buffer which contains multi-line string w/o last LF 
 ..
 
+==== s_read_pastebuffer_gnuscreen 
+---- It should read the paste buffer which contains empty string 
+..
+---- It should read the paste buffer which contains string without newline 
+..
+---- It should read the paste buffer which contains single-line string 
+..
+---- It should read the paste buffer which contains multi-line string 
+..
+---- It should read the paste buffer which contains multi-line string w/o last LF 
+..
+
 ==== s_write_pastebuffer 
+---- It should succeed 
+.....
+
+==== s_write_pastebuffer_gnuscreen 
 ---- It should succeed 
 .....
 
@@ -19,4 +35,4 @@
 **** Result ****
 
 
-15 examples, 0 failures
+30 examples, 0 failures
