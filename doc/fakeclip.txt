@@ -245,6 +245,11 @@ CHANGELOG					*fakeclip-changelog*
 0.2.6	2009-11-16T20:49:35+09:00		*fakeclip-changelog-0.2.6*
 	- Fix improper error message on putting to paste buffer.  (Thanks
 	  to @thinca for reporting)
+	- Fix a bug that there is a possibility to fail to read the paste
+	  buffer of GNU screen if it is emptied by "register . ''".  (Thanks
+	  to @thinca for reporting)
+	- Revise for race condition problem to read the paste buffer of GNU
+	  screen, though it's not perfect yet.
 
 0.2.5	2009-11-11T21:51:50+09:00		*fakeclip-changelog-0.2.5*
 	- Revise the way to detect whether GNU screen is available or not.

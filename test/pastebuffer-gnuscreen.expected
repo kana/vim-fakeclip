@@ -9,6 +9,8 @@
 ..
 ---- It should read the paste buffer which contains multi-line string w/o last LF 
 ..
+---- It should read the paste buffer which is emptied by "register . ''" 
+..
 
 ==== s_read_pastebuffer_gnuscreen 
 ---- It should read the paste buffer which contains empty string 
@@ -20,6 +22,8 @@
 ---- It should read the paste buffer which contains multi-line string 
 ..
 ---- It should read the paste buffer which contains multi-line string w/o last LF 
+..
+---- It should read the paste buffer which is emptied by "register . ''" 
 ..
 
 ==== s_write_pastebuffer 
@@ -35,4 +39,4 @@
 **** Result ****
 
 
-30 examples, 0 failures
+34 examples, 0 failures

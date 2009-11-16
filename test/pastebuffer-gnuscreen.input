@@ -44,6 +44,12 @@ function s:describe__s_read_pastebuffer_gnuscreen()  "{{{1
   call s:write('E', 'F')
   Should Call('s:read_pastebuffer_gnuscreen') ==# "E\nF"
   Should Call('s:read_pastebuffer_gnuscreen') ==# "E\nF"
+
+  It should read the paste buffer which is emptied by "register . ''"
+
+  silent !screen -X register . ''
+  Should Call('s:read_pastebuffer_gnuscreen') ==# ''
+  Should Call('s:read_pastebuffer_gnuscreen') ==# ''
 endfunction
 
 
@@ -101,6 +107,12 @@ function s:describe__s_read_pastebuffer()  "{{{1
   call s:write('E', 'F')
   Should Call('s:read_pastebuffer') ==# "E\nF"
   Should Call('s:read_pastebuffer') ==# "E\nF"
+
+  It should read the paste buffer which is emptied by "register . ''"
+
+  silent !screen -X register . ''
+  Should Call('s:read_pastebuffer') ==# ''
+  Should Call('s:read_pastebuffer') ==# ''
 endfunction
 
 
