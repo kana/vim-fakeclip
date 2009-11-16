@@ -242,7 +242,7 @@ endfunction
 
 
 function! s:write_pastebuffer_unknown(lines)
-  echoerr 'GNU screen is not available'
+  echoerr 'Paste buffer is not available'
   return
 endfunction
 

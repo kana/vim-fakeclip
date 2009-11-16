@@ -242,6 +242,10 @@ http://developer.apple.com/documentation/CoreFoundation/Reference/CFStringRef/
 ==============================================================================
 CHANGELOG					*fakeclip-changelog*
 
+0.2.6	2009-11-16T20:49:35+09:00		*fakeclip-changelog-0.2.6*
+	- Fix improper error message on putting to paste buffer.  (Thanks
+	  to @thinca for reporting)
+
 0.2.5	2009-11-11T21:51:50+09:00		*fakeclip-changelog-0.2.5*
 	- Revise the way to detect whether GNU screen is available or not.
 	- Fix a bug to yank to string with newline character into paste buffer
