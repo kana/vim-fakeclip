@@ -170,6 +170,9 @@ function! s:read_pastebuffer_gnuscreen()
     "     "readbuf /dev/null", but it doesn't create any file is the paste
     "     buffer is emptied by "register . ''".  So here we have to check the
     "     existence of the temporary file.
+  if exists('g:fakeclip_delay_to_read_pastebuffer_gnuscreen')
+    execute 'sleep' g:fakeclip_delay_to_read_pastebuffer_gnuscreen
+  endif
   let content = filereadable(_) ? join(readfile(_, 'b'), "\n") : ''
   call delete(_)
   return content

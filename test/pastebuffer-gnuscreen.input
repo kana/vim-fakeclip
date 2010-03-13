@@ -10,6 +10,7 @@ function! s:write(...)  "{{{1
   call system('screen -X readbuf ' . shellescape(_))
   call delete(_)
 endfunction
+let g:fakeclip_delay_to_read_pastebuffer_gnuscreen = '3'
 
 
 
