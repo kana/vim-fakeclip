@@ -34,7 +34,7 @@ else
 endif
 
 
-if executable('screen') && $WINDOW != ''
+if executable('screen')
   let s:TERMINAL_MULTIPLEXER_TYPE = 'gnuscreen'
 elseif executable('tmux') && $TMUX != ''
   let s:TERMINAL_MULTIPLEXER_TYPE = 'tmux'
