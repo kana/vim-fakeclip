@@ -242,6 +242,11 @@ http://developer.apple.com/documentation/CoreFoundation/Reference/CFStringRef/
 ==============================================================================
 CHANGELOG					*fakeclip-changelog*
 
+0.2.7	2010-04-02T21:27:16+09:00		*fakeclip-changelog-0.2.7*
+	- Fix to read/write the paste buffer of GNU screen outside a session.
+	  Old versions allow to read/write the paste buffer only if Vim is
+	  running in a session of GNU screen.
+
 0.2.6	2009-11-16T20:49:35+09:00		*fakeclip-changelog-0.2.6*
 	- Fix improper error message on putting to paste buffer.  (Thanks
 	  to @thinca for reporting)
