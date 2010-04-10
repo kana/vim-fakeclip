@@ -146,70 +146,71 @@ inoremap <Plug>(fakeclip-screen-insert-p)
 " Default key mappings  "{{{2
 
 command! -bang -bar -nargs=0 FakeclipDefaultKeyMappings
-\ call s:cmd_FakeclipDefaultKeyMappings()
+\ call s:cmd_FakeclipDefaultKeyMappings(<bang>0)
 
-function! s:cmd_FakeclipDefaultKeyMappings()
+function! s:cmd_FakeclipDefaultKeyMappings(banged_p)
+  let modifier = a:banged_p ? '' : '<unique>'
   " Clipboard
   if !has('clipboard')
     for _ in ['+', '*']
-      execute 'nmap "'._.'y  <Plug>(fakeclip-y)'
-      execute 'nmap "'._.'Y  <Plug>(fakeclip-Y)'
-      execute 'nmap "'._.'yy  <Plug>(fakeclip-Y)'
-      execute 'vmap "'._.'y  <Plug>(fakeclip-y)'
-      execute 'vmap "'._.'Y  <Plug>(fakeclip-Y)'
+      execute 'nmap '.modifier.' "'._.'y  <Plug>(fakeclip-y)'
+      execute 'nmap '.modifier.' "'._.'Y  <Plug>(fakeclip-Y)'
+      execute 'nmap '.modifier.' "'._.'yy  <Plug>(fakeclip-Y)'
+      execute 'vmap '.modifier.' "'._.'y  <Plug>(fakeclip-y)'
+      execute 'vmap '.modifier.' "'._.'Y  <Plug>(fakeclip-Y)'
 
-      execute 'nmap "'._.'p  <Plug>(fakeclip-p)'
-      execute 'nmap "'._.'P  <Plug>(fakeclip-P)'
-      execute 'nmap "'._.'gp  <Plug>(fakeclip-gp)'
-      execute 'nmap "'._.'gP  <Plug>(fakeclip-gP)'
-      execute 'nmap "'._.']p  <Plug>(fakeclip-]p)'
-      execute 'nmap "'._.']P  <Plug>(fakeclip-]P)'
-      execute 'nmap "'._.'[p  <Plug>(fakeclip-[p)'
-      execute 'nmap "'._.'[P  <Plug>(fakeclip-[P)'
-      execute 'vmap "'._.'p  <Plug>(fakeclip-p)'
-      execute 'vmap "'._.'P  <Plug>(fakeclip-P)'
-      execute 'vmap "'._.'gp  <Plug>(fakeclip-gp)'
-      execute 'vmap "'._.'gP  <Plug>(fakeclip-gP)'
-      execute 'vmap "'._.']p  <Plug>(fakeclip-]p)'
-      execute 'vmap "'._.']P  <Plug>(fakeclip-]P)'
-      execute 'vmap "'._.'[p  <Plug>(fakeclip-[p)'
-      execute 'vmap "'._.'[P  <Plug>(fakeclip-[P)'
+      execute 'nmap '.modifier.' "'._.'p  <Plug>(fakeclip-p)'
+      execute 'nmap '.modifier.' "'._.'P  <Plug>(fakeclip-P)'
+      execute 'nmap '.modifier.' "'._.'gp  <Plug>(fakeclip-gp)'
+      execute 'nmap '.modifier.' "'._.'gP  <Plug>(fakeclip-gP)'
+      execute 'nmap '.modifier.' "'._.']p  <Plug>(fakeclip-]p)'
+      execute 'nmap '.modifier.' "'._.']P  <Plug>(fakeclip-]P)'
+      execute 'nmap '.modifier.' "'._.'[p  <Plug>(fakeclip-[p)'
+      execute 'nmap '.modifier.' "'._.'[P  <Plug>(fakeclip-[P)'
+      execute 'vmap '.modifier.' "'._.'p  <Plug>(fakeclip-p)'
+      execute 'vmap '.modifier.' "'._.'P  <Plug>(fakeclip-P)'
+      execute 'vmap '.modifier.' "'._.'gp  <Plug>(fakeclip-gp)'
+      execute 'vmap '.modifier.' "'._.'gP  <Plug>(fakeclip-gP)'
+      execute 'vmap '.modifier.' "'._.']p  <Plug>(fakeclip-]p)'
+      execute 'vmap '.modifier.' "'._.']P  <Plug>(fakeclip-]P)'
+      execute 'vmap '.modifier.' "'._.'[p  <Plug>(fakeclip-[p)'
+      execute 'vmap '.modifier.' "'._.'[P  <Plug>(fakeclip-[P)'
 
-      execute 'map! <C-r>'._.'  <Plug>(fakeclip-insert)'
-      execute 'map! <C-r><C-r>'._.'  <Plug>(fakeclip-insert-r)'
-      execute 'map! <C-r><C-o>'._.'  <Plug>(fakeclip-insert-o)'
-      execute 'imap <C-r><C-p>'._.'  <Plug>(fakeclip-insert-p)'
+      execute 'map! '.modifier.' <C-r>'._.'  <Plug>(fakeclip-insert)'
+      execute 'map! '.modifier.' <C-r><C-r>'._.'  <Plug>(fakeclip-insert-r)'
+      execute 'map! '.modifier.' <C-r><C-o>'._.'  <Plug>(fakeclip-insert-o)'
+      execute 'imap '.modifier.' <C-r><C-p>'._.'  <Plug>(fakeclip-insert-p)'
     endfor
   endif
 
   " Paste buffer
-  nmap "&y  <Plug>(fakeclip-screen-y)
-  nmap "&Y  <Plug>(fakeclip-screen-Y)
-  nmap "&yy  <Plug>(fakeclip-screen-Y)
-  vmap "&y  <Plug>(fakeclip-screen-y)
-  vmap "&Y  <Plug>(fakeclip-screen-Y)
+  execute 'nmap '.modifier.' "&y  <Plug>(fakeclip-screen-y)'
+  execute 'nmap '.modifier.' "&Y  <Plug>(fakeclip-screen-Y)'
+  execute 'nmap '.modifier.' "&yy  <Plug>(fakeclip-screen-Y)'
+  execute 'vmap '.modifier.' "&y  <Plug>(fakeclip-screen-y)'
+  execute 'vmap '.modifier.' "&Y  <Plug>(fakeclip-screen-Y)'
 
-  nmap "&p  <Plug>(fakeclip-screen-p)
-  nmap "&P  <Plug>(fakeclip-screen-P)
-  nmap "&gp  <Plug>(fakeclip-screen-gp)
-  nmap "&gP  <Plug>(fakeclip-screen-gP)
-  nmap "&]p  <Plug>(fakeclip-screen-]p)
-  nmap "&]P  <Plug>(fakeclip-screen-]P)
-  nmap "&[p  <Plug>(fakeclip-screen-[p)
-  nmap "&[P  <Plug>(fakeclip-screen-[P)
-  vmap "&p  <Plug>(fakeclip-screen-p)
-  vmap "&P  <Plug>(fakeclip-screen-P)
-  vmap "&gp  <Plug>(fakeclip-screen-gp)
-  vmap "&gP  <Plug>(fakeclip-screen-gP)
-  vmap "&]p  <Plug>(fakeclip-screen-]p)
-  vmap "&]P  <Plug>(fakeclip-screen-]P)
-  vmap "&[p  <Plug>(fakeclip-screen-[p)
-  vmap "&[P  <Plug>(fakeclip-screen-[P)
+  execute 'nmap '.modifier.' "&p  <Plug>(fakeclip-screen-p)'
+  execute 'nmap '.modifier.' "&P  <Plug>(fakeclip-screen-P)'
+  execute 'nmap '.modifier.' "&gp  <Plug>(fakeclip-screen-gp)'
+  execute 'nmap '.modifier.' "&gP  <Plug>(fakeclip-screen-gP)'
+  execute 'nmap '.modifier.' "&]p  <Plug>(fakeclip-screen-]p)'
+  execute 'nmap '.modifier.' "&]P  <Plug>(fakeclip-screen-]P)'
+  execute 'nmap '.modifier.' "&[p  <Plug>(fakeclip-screen-[p)'
+  execute 'nmap '.modifier.' "&[P  <Plug>(fakeclip-screen-[P)'
+  execute 'vmap '.modifier.' "&p  <Plug>(fakeclip-screen-p)'
+  execute 'vmap '.modifier.' "&P  <Plug>(fakeclip-screen-P)'
+  execute 'vmap '.modifier.' "&gp  <Plug>(fakeclip-screen-gp)'
+  execute 'vmap '.modifier.' "&gP  <Plug>(fakeclip-screen-gP)'
+  execute 'vmap '.modifier.' "&]p  <Plug>(fakeclip-screen-]p)'
+  execute 'vmap '.modifier.' "&]P  <Plug>(fakeclip-screen-]P)'
+  execute 'vmap '.modifier.' "&[p  <Plug>(fakeclip-screen-[p)'
+  execute 'vmap '.modifier.' "&[P  <Plug>(fakeclip-screen-[P)'
 
-  map! <C-r>&  <Plug>(fakeclip-screen-insert)
-  map! <C-r><C-r>&  <Plug>(fakeclip-screen-insert-r)
-  map! <C-r><C-o>&  <Plug>(fakeclip-screen-insert-o)
-  imap <C-r><C-p>&  <Plug>(fakeclip-screen-insert-p)
+  execute 'map! '.modifier.' <C-r>&  <Plug>(fakeclip-screen-insert)'
+  execute 'map! '.modifier.' <C-r><C-r>&  <Plug>(fakeclip-screen-insert-r)'
+  execute 'map! '.modifier.' <C-r><C-o>&  <Plug>(fakeclip-screen-insert-o)'
+  execute 'imap '.modifier.' <C-r><C-p>&  <Plug>(fakeclip-screen-insert-p)'
 endfunction
 
 if !exists('g:fakeclip_no_default_key_mappings')
