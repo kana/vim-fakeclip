@@ -38,16 +38,17 @@ Changelog		|fakeclip-changelog|
 ==============================================================================
 INTRODUCTION					*fakeclip-introduction*
 
-*fakeclip* is a Vim plugin to provide pseudo clipboard register (|quotestar|
-or |quoteplus|) for non-GUI version of Vim on the following platforms:
+*fakeclip* is a Vim plugin to provide a pseudo |clipboard| register for
+several versions of Vim without |+clipboard| support, especially for non-GUI
+version of Vim on the following platforms:
 
 - Cygwin
 - Mac OS X
 - X Window System (by xclip <http://sourceforge.net/projects/xclip/>)
 
 
-fakeclip also provides a pseudo register for "paste buffer" if one of the
-following applications is available:
+fakeclip also provides a pseudo register to access a "paste buffer" if one of
+the following applications is available:
 
 - GNU screen
 - tmux
