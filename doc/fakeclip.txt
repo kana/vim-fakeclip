@@ -57,6 +57,9 @@ the following applications is available:
 FAQ: If you can't copy/paste multibyte characters with the clipboard
      on Mac OS X, see |fakeclip-multibyte-on-mac|.
 
+Note for Mac OS users: Though Vim supports clipboard for the console version
+since version 7.3, fakeclip is still useful to access a "paste buffer".
+
 
 Requirements:
 - Vim 7.0 or later
