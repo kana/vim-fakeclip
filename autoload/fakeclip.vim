@@ -73,7 +73,7 @@ endfunction
 
 function! fakeclip#delete(system_type, motion_type)  "{{{2
   call s:select_last_motion(a:motion_type)
-  normal! d
+  execute 'normal!' (a:motion_type == 'V' ? 'D' : 'd')
   call s:write_{a:system_type}(@@)
 endfunction
 
