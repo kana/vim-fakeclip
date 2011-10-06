@@ -85,6 +85,13 @@ KEY MAPPINGS					*fakeclip-key-mappings*
 {Visual}<Plug>(fakeclip-Y)			*v_<Plug>(fakeclip-Y)*
 			Like |y| or |Y|, but yank into the clipboard.
 
+[count]<Plug>(fakeclip-d){motion}		*<Plug>(fakeclip-d)*
+[count]<Plug>(fakeclip-dd)			*<Plug>(fakeclip-dd)*
+[count]<Plug>(fakeclip-D)			*<Plug>(fakeclip-D)*
+{Visual}<Plug>(fakeclip-d)			*v_<Plug>(fakeclip-d)*
+{Visual}<Plug>(fakeclip-D)			*v_<Plug>(fakeclip-D)*
+			Like |d|, |dd| or |D|, but cut into the clipboard.
+
 [count]<Plug>(fakeclip-p)			*<Plug>(fakeclip-p)*
 [count]<Plug>(fakeclip-P)			*<Plug>(fakeclip-P)*
 [count]<Plug>(fakeclip-gp)			*<Plug>(fakeclip-gp)*
@@ -113,6 +120,13 @@ KEY MAPPINGS					*fakeclip-key-mappings*
 {Visual}<Plug>(fakeclip-screen-y)		*v_<Plug>(fakeclip-screen-y)*
 {Visual}<Plug>(fakeclip-screen-Y)		*v_<Plug>(fakeclip-screen-Y)*
 			Like |y| or |Y|, but yank into the paste buffer.
+
+[count]<Plug>(fakeclip-screen-d){motion}	*<Plug>(fakeclip-screen-d)*
+[count]<Plug>(fakeclip-screen-dd)		*<Plug>(fakeclip-screen-dd)*
+[count]<Plug>(fakeclip-screen-D)		*<Plug>(fakeclip-screen-D)*
+{Visual}<Plug>(fakeclip-screen-d)		*v_<Plug>(fakeclip-screen-d)*
+{Visual}<Plug>(fakeclip-screen-D)		*v_<Plug>(fakeclip-screen-D)*
+			Like |d|, |dd| or |D|, but cut into the pastebuffer.
 
 [count]<Plug>(fakeclip-screen-p)		*<Plug>(fakeclip-screen-p)*
 [count]<Plug>(fakeclip-screen-P)		*<Plug>(fakeclip-screen-P)*
@@ -153,6 +167,12 @@ doesn't override existing {lhs}s unless [!] is given.
 	n	"*yy		<Plug>(fakeclip-Y)
 	nv	"+Y		<Plug>(fakeclip-Y)
 	nv	"*Y		<Plug>(fakeclip-Y)
+	nv	"+d		<Plug>(fakeclip-d)
+	nv	"*d		<Plug>(fakeclip-d)
+	n	"+dd		<Plug>(fakeclip-dd)
+	n	"*dd		<Plug>(fakeclip-dd)
+	nv	"+D		<Plug>(fakeclip-D)
+	nv	"*D		<Plug>(fakeclip-D)
 	nv	"+p		<Plug>(fakeclip-p)
 	nv	"*p		<Plug>(fakeclip-p)
 	nv	"+P		<Plug>(fakeclip-P)
@@ -180,6 +200,9 @@ doesn't override existing {lhs}s unless [!] is given.
 	nv	"&y		<Plug>(fakeclip-screen-y)
 	n	"&yy		<Plug>(fakeclip-screen-Y)
 	nv	"&Y		<Plug>(fakeclip-screen-Y)
+	nv	"&d		<Plug>(fakeclip-screen-d)
+	n	"&dd		<Plug>(fakeclip-screen-dd)
+	nv	"&D		<Plug>(fakeclip-screen-D)
 	nv	"&p		<Plug>(fakeclip-screen-p)
 	nv	"&P		<Plug>(fakeclip-screen-P)
 	nv	"&gp		<Plug>(fakeclip-screen-gp)
