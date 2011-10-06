@@ -83,7 +83,7 @@ KEY MAPPINGS					*fakeclip-key-mappings*
 [count]<Plug>(fakeclip-Y)			*<Plug>(fakeclip-Y)*
 {Visual}<Plug>(fakeclip-y)			*v_<Plug>(fakeclip-y)*
 {Visual}<Plug>(fakeclip-Y)			*v_<Plug>(fakeclip-Y)*
-			Like as |y| or |Y|, but yank into the clipboard.
+			Like |y| or |Y|, but yank into the clipboard.
 
 [count]<Plug>(fakeclip-p)			*<Plug>(fakeclip-p)*
 [count]<Plug>(fakeclip-P)			*<Plug>(fakeclip-P)*
@@ -93,7 +93,7 @@ KEY MAPPINGS					*fakeclip-key-mappings*
 [count]<Plug>(fakeclip-]P)			*<Plug>(fakeclip-]P)*
 [count]<Plug>(fakeclip-[p)			*<Plug>(fakeclip-[p)*
 [count]<Plug>(fakeclip-[P)			*<Plug>(fakeclip-[P)*
-			Like as |p|, |P|, |gp|, |gP|, |]p|, |]P|, |[p| or
+			Like |p|, |P|, |gp|, |gP|, |]p|, |]P|, |[p| or
 			|[P|, but put from the clipboard.
 						*c_<Plug>(fakeclip-insert)*
 <Plug>(fakeclip-insert)				*i_<Plug>(fakeclip-insert)*
@@ -112,7 +112,7 @@ KEY MAPPINGS					*fakeclip-key-mappings*
 [count]<Plug>(fakeclip-screen-Y)		*<Plug>(fakeclip-screen-Y)*
 {Visual}<Plug>(fakeclip-screen-y)		*v_<Plug>(fakeclip-screen-y)*
 {Visual}<Plug>(fakeclip-screen-Y)		*v_<Plug>(fakeclip-screen-Y)*
-			Like as |y| or |Y|, but yank into the paste buffer.
+			Like |y| or |Y|, but yank into the paste buffer.
 
 [count]<Plug>(fakeclip-screen-p)		*<Plug>(fakeclip-screen-p)*
 [count]<Plug>(fakeclip-screen-P)		*<Plug>(fakeclip-screen-P)*
@@ -122,8 +122,8 @@ KEY MAPPINGS					*fakeclip-key-mappings*
 [count]<Plug>(fakeclip-screen-]P)		*<Plug>(fakeclip-screen-]P)*
 [count]<Plug>(fakeclip-screen-[p)		*<Plug>(fakeclip-screen-[p)*
 [count]<Plug>(fakeclip-screen-[P)		*<Plug>(fakeclip-screen-[P)*
-			Like as |p|, |P|, |gp|, |gP|, |]p|, |]P|, |[p| or
-			|[P|, but put from the paste buffer.
+			Like |p|, |P|, |gp|, |gP|, |]p|, |]P|, |[p| or |[P|,
+			but put from the paste buffer.
 					*c_<Plug>(fakeclip-screen-insert)*
 <Plug>(fakeclip-screen-insert)		*i_<Plug>(fakeclip-screen-insert)*
 					*c_<Plug>(fakeclip-screen-insert-r)*
