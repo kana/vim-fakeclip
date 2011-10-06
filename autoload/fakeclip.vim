@@ -64,6 +64,13 @@ endfunction
 
 
 
+function! fakeclip#pastebuffer_yank(motion_type)  "{{{2
+  return fakeclip#yank('pastebuffer', a:motion_type)
+endfunction
+
+
+
+
 function! fakeclip#put(system_type, motion_type, put_type)  "{{{2
   let r_ = s:save_register('"')
   let @@ = fakeclip#content(a:system_type)
@@ -75,13 +82,6 @@ function! fakeclip#put(system_type, motion_type, put_type)  "{{{2
     call s:select_last_motion(a:motion_type)
     execute 'normal!' s:count().a:put_type
   endif
-endfunction
-
-
-
-
-function! fakeclip#pastebuffer_yank(motion_type)  "{{{2
-  return fakeclip#yank('pastebuffer', a:motion_type)
 endfunction
 
 
