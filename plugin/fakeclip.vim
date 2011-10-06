@@ -46,6 +46,13 @@ nnoremap <silent> <Plug>(fakeclip-Y)
 vnoremap <silent> <Plug>(fakeclip-Y)
 \ :<C-u>call fakeclip#yank('clipboard', 'V')<Return>
 
+nnoremap <silent> <Plug>(fakeclip-d)
+\ :<C-u>set operatorfunc=fakeclip#clipboard_delete<Return>g@
+vnoremap <silent> <Plug>(fakeclip-d)
+\ :<C-u>call fakeclip#delete('clipboard', visualmode())<Return>
+nnoremap <silent> <Plug>(fakeclip-dd)
+\ :<C-u>call fakeclip#delete_dd('clipboard')<Return>
+
 nnoremap <silent> <Plug>(fakeclip-p)
 \ :<C-u>call fakeclip#put('clipboard', '', 'p')<Return>
 nnoremap <silent> <Plug>(fakeclip-P)
@@ -97,6 +104,13 @@ nnoremap <silent> <Plug>(fakeclip-screen-Y)
 \ :<C-u>call fakeclip#yank_Y('pastebuffer')<Return>
 vnoremap <silent> <Plug>(fakeclip-screen-Y)
 \ :<C-u>call fakeclip#yank('pastebuffer', 'V')<Return>
+
+nnoremap <silent> <Plug>(fakeclip-screen-d)
+\ :<C-u>set operatorfunc=fakeclip#pastebuffer_delete<Return>g@
+vnoremap <silent> <Plug>(fakeclip-screen-d)
+\ :<C-u>call fakeclip#delete('pastebuffer', visualmode())<Return>
+nnoremap <silent> <Plug>(fakeclip-dd)
+\ :<C-u>call fakeclip#delete_dd('pastebuffer')<Return>
 
 nnoremap <silent> <Plug>(fakeclip-screen-p)
 \ :<C-u>call fakeclip#put('pastebuffer', '', 'p')<Return>
@@ -159,6 +173,11 @@ function! s:cmd_FakeclipDefaultKeyMappings(banged_p)
       execute 'silent! vmap '.modifier.' "'._.'y  <Plug>(fakeclip-y)'
       execute 'silent! vmap '.modifier.' "'._.'Y  <Plug>(fakeclip-Y)'
 
+      execute 'silent! nmap '.modifier.' "'._.'d  <Plug>(fakeclip-d)'
+      execute 'silent! nmap '.modifier.' "'._.'dd  <Plug>(fakeclip-dd)'
+      execute 'silent! vmap '.modifier.' "'._.'d  <Plug>(fakeclip-d)'
+      execute 'silent! vmap '.modifier.' "'._.'D  <Plug>(fakeclip-d)'
+
       execute 'silent! nmap '.modifier.' "'._.'p  <Plug>(fakeclip-p)'
       execute 'silent! nmap '.modifier.' "'._.'P  <Plug>(fakeclip-P)'
       execute 'silent! nmap '.modifier.' "'._.'gp  <Plug>(fakeclip-gp)'
@@ -189,6 +208,11 @@ function! s:cmd_FakeclipDefaultKeyMappings(banged_p)
   execute 'silent! nmap '.modifier.' "&yy  <Plug>(fakeclip-screen-Y)'
   execute 'silent! vmap '.modifier.' "&y  <Plug>(fakeclip-screen-y)'
   execute 'silent! vmap '.modifier.' "&Y  <Plug>(fakeclip-screen-Y)'
+
+  execute 'silent! nmap '.modifier.' "&d  <Plug>(fakeclip-screen-d)'
+  execute 'silent! nmap '.modifier.' "&dd  <Plug>(fakeclip-screen-dd)'
+  execute 'silent! vmap '.modifier.' "&d  <Plug>(fakeclip-screen-d)'
+  execute 'silent! vmap '.modifier.' "&D  <Plug>(fakeclip-screen-d)'
 
   execute 'silent! nmap '.modifier.' "&p  <Plug>(fakeclip-screen-p)'
   execute 'silent! nmap '.modifier.' "&P  <Plug>(fakeclip-screen-P)'

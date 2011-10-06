@@ -57,6 +57,13 @@ endfunction
 
 
 
+function! fakeclip#clipboard_delete(motion_type)  "{{{2
+  return fakeclip#delete('clipboard', a:motion_type)
+endfunction
+
+
+
+
 function! fakeclip#content(system_type)  "{{{2
   return s:read_{a:system_type}()
 endfunction
@@ -114,6 +121,36 @@ endfunction
 
 
 
+function! fakeclip#pastebuffer_delete(motion_type)  "{{{2
+  return fakeclip#delete('pastebuffer', a:motion_type)
+endfunction
+
+
+
+
+function! fakeclip#delete(system_type, motion_type)  "{{{2
+  let r0 = s:save_register('0')
+
+  call s:select_last_motion(a:motion_type)
+  normal! d
+  call s:write_{a:system_type}(@@)
+
+  call s:restore_register('0', r0)
+endfunction
+
+
+
+
+function! fakeclip#delete_dd(system_type)  "{{{2
+  let diff = s:count() - 1
+  normal! V
+  if 0 < diff
+    execute 'normal!' diff.'j'
+  endif
+  execute 'normal' (a:system_type ==# 'clipboard'
+  \                 ? "\<Plug>(fakeclip-d)"
+  \                 : "\<Plug>(fakeclip-screen-d)")
+endfunction
 
 
 
