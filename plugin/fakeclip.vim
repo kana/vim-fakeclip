@@ -92,6 +92,8 @@ nnoremap <silent> <Plug>(fakeclip-d)
 \ :<C-u>set operatorfunc=fakeclip#clipboard_delete<Return>g@
 vnoremap <silent> <Plug>(fakeclip-d)
 \ :<C-u>call fakeclip#delete('clipboard', visualmode())<Return>
+nnoremap <silent> <Plug>(fakeclip-dd)
+\ :<C-u>set operatorfunc=fakeclip#clipboard_delete<Return>g@g@
 
 
 nnoremap <silent> <Plug>(fakeclip-screen-y)
@@ -149,6 +151,8 @@ nnoremap <silent> <Plug>(fakeclip-screen-d)
 \ :<C-u>set operatorfunc=fakeclip#pastebuffer_delete<Return>g@
 vnoremap <silent> <Plug>(fakeclip-screen-d)
 \ :<C-u>call fakeclip#delete('pastebuffer', visualmode())<Return>
+nnoremap <silent> <Plug>(fakeclip-screen-dd)
+\ :<C-u>set operatorfunc=fakeclip#pastebuffer_delete<Return>g@g@
 
 
 
@@ -193,6 +197,7 @@ function! s:cmd_FakeclipDefaultKeyMappings(banged_p)
 
       execute 'silent! nmap '.modifier.' "'._.'d  <Plug>(fakeclip-d)'
       execute 'silent! vmap '.modifier.' "'._.'d  <Plug>(fakeclip-d)'
+      execute 'silent! nmap '.modifier.' "'._.'dd  <Plug>(fakeclip-dd)'
     endfor
   endif
 
@@ -227,6 +232,7 @@ function! s:cmd_FakeclipDefaultKeyMappings(banged_p)
 
   execute 'silent! nmap '.modifier.' "&d  <Plug>(fakeclip-screen-d)'
   execute 'silent! vmap '.modifier.' "&d  <Plug>(fakeclip-screen-d)'
+  execute 'silent! nmap '.modifier.' "&dd  <Plug>(fakeclip-screen-dd)'
 endfunction
 
 if !exists('g:fakeclip_no_default_key_mappings')
