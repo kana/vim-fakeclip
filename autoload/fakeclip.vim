@@ -50,6 +50,13 @@ endif
 
 
 " Interface  "{{{1
+function! fakeclip#clipboard_delete(motion_type)  "{{{2
+  return fakeclip#delete('clipboard', a:motion_type)
+endfunction
+
+
+
+
 function! fakeclip#clipboard_yank(motion_type)  "{{{2
   return fakeclip#yank('clipboard', a:motion_type)
 endfunction
@@ -59,6 +66,22 @@ endfunction
 
 function! fakeclip#content(system_type)  "{{{2
   return s:read_{a:system_type}()
+endfunction
+
+
+
+
+function! fakeclip#delete(system_type, motion_type)  "{{{2
+  call s:select_last_motion(a:motion_type)
+  execute 'normal!' (a:motion_type == 'V' ? 'D' : 'd')
+  call s:write_{a:system_type}(@@)
+endfunction
+
+
+
+
+function! fakeclip#pastebuffer_delete(motion_type)  "{{{2
+  return fakeclip#delete('pastebuffer', a:motion_type)
 endfunction
 
 

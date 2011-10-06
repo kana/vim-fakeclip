@@ -88,6 +88,17 @@ noremap! <Plug>(fakeclip-insert-o)
 inoremap <Plug>(fakeclip-insert-p)
 \ <C-r><C-p>=fakeclip#content('clipboard')<Return>
 
+nnoremap <silent> <Plug>(fakeclip-d)
+\ :<C-u>set operatorfunc=fakeclip#clipboard_delete<Return>g@
+vnoremap <silent> <Plug>(fakeclip-d)
+\ :<C-u>call fakeclip#delete('clipboard', visualmode())<Return>
+nnoremap <silent> <Plug>(fakeclip-dd)
+\ :<C-u>set operatorfunc=fakeclip#clipboard_delete<Return>g@g@
+nnoremap <silent> <Plug>(fakeclip-D)
+\ :<C-u>set operatorfunc=fakeclip#clipboard_delete<Return>g@$
+vnoremap <silent> <Plug>(fakeclip-D)
+\ :<C-u>call fakeclip#delete('clipboard', 'V')<Return>
+
 
 nnoremap <silent> <Plug>(fakeclip-screen-y)
 \ :<C-u>set operatorfunc=fakeclip#pastebuffer_yank<Return>g@
@@ -140,6 +151,17 @@ noremap! <Plug>(fakeclip-screen-insert-o)
 inoremap <Plug>(fakeclip-screen-insert-p)
 \ <C-r><C-p>=fakeclip#content('pastebuffer')<Return>
 
+nnoremap <silent> <Plug>(fakeclip-screen-d)
+\ :<C-u>set operatorfunc=fakeclip#pastebuffer_delete<Return>g@
+vnoremap <silent> <Plug>(fakeclip-screen-d)
+\ :<C-u>call fakeclip#delete('pastebuffer', visualmode())<Return>
+nnoremap <silent> <Plug>(fakeclip-screen-dd)
+\ :<C-u>set operatorfunc=fakeclip#pastebuffer_delete<Return>g@g@
+nnoremap <silent> <Plug>(fakeclip-screen-D)
+\ :<C-u>set operatorfunc=fakeclip#pastebuffer_delete<Return>g@$
+vnoremap <silent> <Plug>(fakeclip-screen-D)
+\ :<C-u>call fakeclip#delete('pastebuffer', 'V')<Return>
+
 
 
 
@@ -180,6 +202,12 @@ function! s:cmd_FakeclipDefaultKeyMappings(banged_p)
       execute 'silent! map! '.modifier.' <C-r><C-r>'._.'  <Plug>(fakeclip-insert-r)'
       execute 'silent! map! '.modifier.' <C-r><C-o>'._.'  <Plug>(fakeclip-insert-o)'
       execute 'silent! imap '.modifier.' <C-r><C-p>'._.'  <Plug>(fakeclip-insert-p)'
+
+      execute 'silent! nmap '.modifier.' "'._.'d  <Plug>(fakeclip-d)'
+      execute 'silent! vmap '.modifier.' "'._.'d  <Plug>(fakeclip-d)'
+      execute 'silent! nmap '.modifier.' "'._.'dd  <Plug>(fakeclip-dd)'
+      execute 'silent! nmap '.modifier.' "'._.'D  <Plug>(fakeclip-D)'
+      execute 'silent! vmap '.modifier.' "'._.'D  <Plug>(fakeclip-D)'
     endfor
   endif
 
@@ -211,6 +239,12 @@ function! s:cmd_FakeclipDefaultKeyMappings(banged_p)
   execute 'silent! map! '.modifier.' <C-r><C-r>&  <Plug>(fakeclip-screen-insert-r)'
   execute 'silent! map! '.modifier.' <C-r><C-o>&  <Plug>(fakeclip-screen-insert-o)'
   execute 'silent! imap '.modifier.' <C-r><C-p>&  <Plug>(fakeclip-screen-insert-p)'
+
+  execute 'silent! nmap '.modifier.' "&d  <Plug>(fakeclip-screen-d)'
+  execute 'silent! vmap '.modifier.' "&d  <Plug>(fakeclip-screen-d)'
+  execute 'silent! nmap '.modifier.' "&dd  <Plug>(fakeclip-screen-dd)'
+  execute 'silent! nmap '.modifier.' "&D  <Plug>(fakeclip-screen-D)'
+  execute 'silent! vmap '.modifier.' "&D  <Plug>(fakeclip-screen-D)'
 endfunction
 
 if !exists('g:fakeclip_no_default_key_mappings')
