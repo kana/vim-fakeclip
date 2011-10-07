@@ -2,7 +2,7 @@
 
 Version @@VERSION@@
 Script ID: 2098
-Copyright (C) 2007-2010 kana <http://whileimautomaton.net/>
+Copyright (C) 2007-2011 kana <http://whileimautomaton.net/>
 License: So-called MIT/X license  {{{
     Permission is hereby granted, free of charge, to any person obtaining
     a copy of this software and associated documentation files (the
@@ -268,6 +268,10 @@ http://developer.apple.com/documentation/CoreFoundation/Reference/CFStringRef/
 
 ==============================================================================
 CHANGELOG					*fakeclip-changelog*
+
+0.2.9	2011-10-07T20:50:58+09:00		*fakeclip-changelog-0.2.9*
+	- Add support for |d|, |dd| and |D| operation for the clipboard and
+	  the pastebuffer.  (Thanks for Suan-Aik Yeo)
 
 0.2.8	2010-08-31T20:19:51+09:00		*fakeclip-changelog-0.2.8*
 	- |:FakeclipDefaultKeyMappings|: Fix to regard a given bang.
