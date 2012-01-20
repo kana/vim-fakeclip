@@ -34,12 +34,22 @@ else
 endif
 
 
-if executable('screen')
-  let s:TERMINAL_MULTIPLEXER_TYPE = 'gnuscreen'
-elseif executable('tmux') && $TMUX != ''
-  let s:TERMINAL_MULTIPLEXER_TYPE = 'tmux'
+if executable('tmux') && $TMUX != ''
+  let g:fakeclip_terminal_multiplexer_type = 'tmux'
+elseif executable('screen') && $STY != ''
+  let g:fakeclip_terminal_multiplexer_type = 'gnuscreen'
+elseif executable('tmux') && executable('screen')
+  if exists('g:fakeclip_terminal_multiplexer_type')
+    " Use user-defined value as is.
+  else
+    let g:fakeclip_terminal_multiplexer_type = 'tmux'
+  endif
+elseif executable('tmux') && !executable('screen')
+  let g:fakeclip_terminal_multiplexer_type = 'tmux'
+elseif !executable('tmux') && executable('screen')
+  let g:fakeclip_terminal_multiplexer_type = 'gnuscreen'
 else
-  let s:TERMINAL_MULTIPLEXER_TYPE = 'unknown'
+  let g:fakeclip_terminal_multiplexer_type = 'unknown'
 endif
 
 
@@ -176,7 +186,7 @@ endfunction
 
 
 function! s:read_pastebuffer()  "{{{2
-  return s:read_pastebuffer_{s:TERMINAL_MULTIPLEXER_TYPE}()
+  return s:read_pastebuffer_{g:fakeclip_terminal_multiplexer_type}()
 endfunction
 
 
@@ -250,7 +260,7 @@ endfunction
 
 function! s:write_pastebuffer(text)  "{{{2
   let lines = split(a:text, '\n', !0)
-  return s:write_pastebuffer_{s:TERMINAL_MULTIPLEXER_TYPE}(lines)
+  return s:write_pastebuffer_{g:fakeclip_terminal_multiplexer_type}(lines)
 endfunction
 
 
