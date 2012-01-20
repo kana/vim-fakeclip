@@ -29,6 +29,7 @@ CONTENTS					*fakeclip-contents*
 Introduction		|fakeclip-introduction|
 Interface		|fakeclip-interface|
   Key Mappings		  |fakeclip-key-mappings|
+  Variables		  |fakeclip-variables|
 Bugs			|fakeclip-bugs|
 Changelog		|fakeclip-changelog|
 
@@ -215,6 +216,13 @@ doesn't override existing {lhs}s unless [!] is given.
 	ic	<C-r><C-r>&	<Plug>(fakeclip-screen-insert-r)
 	ic	<C-r><C-o>&	<Plug>(fakeclip-screen-insert-o)
 	i	<C-r><C-p>&	<Plug>(fakeclip-screen-insert-p)
+
+
+------------------------------------------------------------------------------
+VARIABLES					*fakeclip-variables*
+
+g:fakeclip_no_default_key_mappings
+	See |g:fakeclip_no_default_key_mappings|.
 
 
 
