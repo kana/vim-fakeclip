@@ -29,6 +29,7 @@ CONTENTS					*fakeclip-contents*
 Introduction		|fakeclip-introduction|
 Interface		|fakeclip-interface|
   Key Mappings		  |fakeclip-key-mappings|
+  Variables		  |fakeclip-variables|
 Bugs			|fakeclip-bugs|
 Changelog		|fakeclip-changelog|
 
@@ -215,6 +216,35 @@ doesn't override existing {lhs}s unless [!] is given.
 	ic	<C-r><C-r>&	<Plug>(fakeclip-screen-insert-r)
 	ic	<C-r><C-o>&	<Plug>(fakeclip-screen-insert-o)
 	i	<C-r><C-p>&	<Plug>(fakeclip-screen-insert-p)
+
+
+------------------------------------------------------------------------------
+VARIABLES					*fakeclip-variables*
+
+g:fakeclip_no_default_key_mappings
+	See |g:fakeclip_no_default_key_mappings|.
+
+g:fakeclip_terminal_multiplexer_type	*g:fakeclip_terminal_multiplexer_type*
+	A string to specify your favorite terminal multiplexer.  One of the
+	following values can be specified:
+
+	"gnuscreen"
+		Use GNU screen.
+	"tmux"
+		Use tmux.
+	"unknown"
+		Use no terminal multiplexer.
+
+	The default value is determined as follows:
+
+	1. "tmux" will be used if Vim is running in a tmux session.
+	2. "gnuscreen" will be used if Vim is running in a GNU screen session.
+	3. User-defined value (via |vimrc| etc) will be used if both tmux and
+	   GNU screen are installed.  "tmux" will be used if user does not
+	   define the value.
+	4. "tmux" will be used if only tmux is installed.
+	5. "gnuscreen" will be used if only GNU screen is installed.
+	6. "unknown" will be used otherwise.
 
 
 
