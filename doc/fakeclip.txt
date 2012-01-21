@@ -299,6 +299,14 @@ http://developer.apple.com/documentation/CoreFoundation/Reference/CFStringRef/
 ==============================================================================
 CHANGELOG					*fakeclip-changelog*
 
+0.2.10	2012-01-22T01:50:21+09:00		*fakeclip-changelog-0.2.10*
+	- Improve the detection of terminal multiplexers.  In other words,
+	  (a) use a more suitable one according to the current environment;
+	  (b) support using the pastebuffer from Vim not in a tmux session.
+	  See also |g:fakeclip_terminal_multiplexer_type| for the details.
+	  (Thanks m4i for reporting the problem via
+	   https://github.com/kana/vim-fakeclip/pull/5)
+
 0.2.9	2011-10-07T20:50:58+09:00		*fakeclip-changelog-0.2.9*
 	- Add support for |d|, |dd| and |D| operation for the clipboard and
 	  the pastebuffer.  (Thanks for Suan-Aik Yeo)
