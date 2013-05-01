@@ -246,6 +246,24 @@ g:fakeclip_terminal_multiplexer_type	*g:fakeclip_terminal_multiplexer_type*
 	5. "gnuscreen" will be used if only GNU screen is installed.
 	6. "unknown" will be used otherwise.
 
+                            *g:fakeclip_always_provide_clipboard_mappings*
+g:fakeclip_always_provide_clipboard_mappings
+							(Default: 0)
+	If |g:fakeclip_no_default_key_mappings| is zero or undefined,
+	and this variable is non-zero, this plugin provides
+	a set of clipboard mappings, like "+y .
+
+	It is useful for a user who want to disable clipboard access
+	to keep Vim from being killed with X server, like the followings:
+>
+	" When running on terminal, use |clipboard-exclude|
+	" to disable connecting to X server
+	" not to be killed with X server.
+	if !has('gui_running')
+		set clipboard+=exclude:.*
+		let g:fakeclip_always_provide_clipboard_mappings = 1
+	endif
+<
 
 
 
