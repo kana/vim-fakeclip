@@ -27,16 +27,16 @@ if has('macunix') || system('uname') =~? '^darwin'
   let s:PLATFORM = 'mac'
 elseif has('win32unix')
   let s:PLATFORM = 'cygwin'
-elseif $DISPLAY != '' && executable('xclip')
+elseif $DISPLAY !=# '' && executable('xclip')
   let s:PLATFORM = 'x'
 else
   let s:PLATFORM = 'unknown'
 endif
 
 
-if executable('tmux') && $TMUX != ''
+if executable('tmux') && $TMUX !=# ''
   let g:fakeclip_terminal_multiplexer_type = 'tmux'
-elseif executable('screen') && $STY != ''
+elseif executable('screen') && $STY !=# ''
   let g:fakeclip_terminal_multiplexer_type = 'gnuscreen'
 elseif executable('tmux') && executable('screen')
   if exists('g:fakeclip_terminal_multiplexer_type')
@@ -83,7 +83,7 @@ endfunction
 
 function! fakeclip#delete(system_type, motion_type)  "{{{2
   call s:select_last_motion(a:motion_type)
-  execute 'normal!' (a:motion_type == 'V' ? 'D' : 'd')
+  execute 'normal!' (a:motion_type ==# 'V' ? 'D' : 'd')
   call s:write_{a:system_type}(@@)
 endfunction
 
@@ -108,7 +108,7 @@ function! fakeclip#put(system_type, motion_type, put_type)  "{{{2
   let r_ = s:save_register('"')
   let @@ = fakeclip#content(a:system_type)
 
-  if a:motion_type == ''
+  if a:motion_type ==# ''
     execute 'normal!' s:count().a:put_type
     call s:restore_register('"', r_)
   else
@@ -311,7 +311,7 @@ endfunction
 
 
 function! s:count()  "{{{2
-  return (v:count == v:count1) ? v:count : ''
+  return (v:count ==# v:count1) ? v:count : ''
 endfunction
 
 
@@ -336,11 +336,11 @@ function! s:select_last_motion(motion_type)  "{{{2
   let orig_selection = &selection
   let &selection = 'inclusive'
 
-  if a:motion_type == 'char'
+  if a:motion_type ==# 'char'
     normal! `[v`]
-  elseif a:motion_type == 'line'
+  elseif a:motion_type ==# 'line'
     normal! '[V']
-  elseif a:motion_type == 'block'
+  elseif a:motion_type ==# 'block'
     execute "normal! `[\<C-v>`]"
   else  " invoked from visual mode
     normal! gv
