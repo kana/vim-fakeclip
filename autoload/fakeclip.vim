@@ -124,7 +124,14 @@ function! fakeclip#yank(system_type, motion_type)  "{{{2
   let r0 = s:save_register('0')
 
   call s:select_last_motion(a:motion_type)
-  normal! y
+  if a:motion_type ==# 'V'
+    " Special case: Y in visual mode ignores the start and ending character
+    " of the selection and yanks complete lines spanned by the selection.
+    " See the vnoremap <Plug>(fakeclip-Y) definition in plugin/fakeclip.vim.
+    normal! Y
+  else
+    normal! y
+  endif
   call s:write_{a:system_type}(@@)
 
   call s:restore_register('0', r0)
