@@ -316,6 +316,15 @@ http://developer.apple.com/documentation/CoreFoundation/Reference/CFStringRef/
 ==============================================================================
 CHANGELOG					*fakeclip-changelog*
 
+0.3.0	2014-05-17T17:34:41+09:00		*fakeclip-changelog-0.3.0*
+	- Add |g:fakeclip_provide_clipboard_key_mappings| for advanced
+	  configurations.  (Thanks to tyru for the patch and an example)
+	- Fix a bug that |d| in characterwise Visual mode did not target
+	  a right text and it deleted text linewise if 'ignorecase' is on.
+	  (Thanks to Kurtis Rader for the patch)
+	- Fix a bug that |Y| in characterwise Visual mode did not yank text
+	  linewise.  (Thanks to Kurtis Rader for the patch)
+
 0.2.10	2012-01-22T01:50:21+09:00		*fakeclip-changelog-0.2.10*
 	- Improve the detection of terminal multiplexers.  In other words,
 	  (a) use a more suitable one according to the current environment;
