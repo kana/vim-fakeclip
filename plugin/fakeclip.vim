@@ -163,7 +163,29 @@ vnoremap <silent> <Plug>(fakeclip-screen-D)
 \ :<C-u>call fakeclip#delete('pastebuffer', 'V')<Return>
 
 
+" Determine if * and + keymap prefixs are needed "{{{2
 
+function! s:NeedsFakeClipboard()
+    " If the user wants to force the use of all fakeclip key maps do it.
+    if exists('g:fakeclip_enable_all_key_mappings')
+        return 1
+    endif
+
+    " If not built with clipboard support we definitely need fakeclip support.
+    if !has('clipboard')
+        return 1
+    endif
+
+    " If this is Vim on Mac OS X compiled with GTK2 support and we're in
+    " non-gui mode then Vim <-> X11 <-> Clipboard shuttling doesn't work. So
+    " enable fakeclip support. We could substitute "!has('gui_macvim')" for
+    " the gui_gtk2 test but I think the latter is clearer.
+    if has('macunix') && has('gui_gtk2') && !has('gui_running')
+        return 1
+    endif
+
+    return 0
+endfunction
 
 " Default key mappings  "{{{2
 
@@ -173,7 +195,7 @@ command! -bang -bar -nargs=0 FakeclipDefaultKeyMappings
 function! s:cmd_FakeclipDefaultKeyMappings(banged_p)
   let modifier = a:banged_p ? '' : '<unique>'
   " Clipboard
-  if !has('clipboard')
+  if s:NeedsFakeClipboard()
     for _ in ['+', '*']
       execute 'silent! nmap '.modifier.' "'._.'y  <Plug>(fakeclip-y)'
       execute 'silent! nmap '.modifier.' "'._.'Y  <Plug>(fakeclip-Y)'
