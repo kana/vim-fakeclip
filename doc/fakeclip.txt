@@ -321,12 +321,12 @@ CHANGELOG					*fakeclip-changelog*
 	  (a) use a more suitable one according to the current environment;
 	  (b) support using the pastebuffer from Vim not in a tmux session.
 	  See also |g:fakeclip_terminal_multiplexer_type| for the details.
-	  (Thanks m4i for reporting the problem via
+	  (Thanks to m4i for reporting the problem via
 	   https://github.com/kana/vim-fakeclip/pull/5)
 
 0.2.9	2011-10-07T20:50:58+09:00		*fakeclip-changelog-0.2.9*
 	- Add support for |d|, |dd| and |D| operation for the clipboard and
-	  the pastebuffer.  (Thanks for Suan-Aik Yeo)
+	  the pastebuffer.  (Thanks to Suan-Aik Yeo)
 
 0.2.8	2010-08-31T20:19:51+09:00		*fakeclip-changelog-0.2.8*
 	- |:FakeclipDefaultKeyMappings|: Fix to regard a given bang.
@@ -349,8 +349,8 @@ CHANGELOG					*fakeclip-changelog*
 	- Revise the way to detect whether GNU screen is available or not.
 	- Fix a bug to yank to string with newline character into paste buffer
 	  register.
-	- Support X Window System by xclip.  (Thanks for @thinca)
-	- Support tmux.  (Thanks for @thinca)
+	- Support X Window System by xclip.  (Thanks to @thinca)
+	- Support tmux.  (Thanks to @thinca)
 
 0.2.4	2009-06-13T18:22:01+09:00		*fakeclip-changelog-0.2.4*
 	- Revise on platforms where |+clipboard| is available:
@@ -367,14 +367,14 @@ CHANGELOG					*fakeclip-changelog*
 	  |fakeclip-multibyte-on-mac| if you can't copy/paste with the
 	  clipboard on Mac OS X.
 	- Fix a bug that fakeclip uses wrong function to escape file-like
-	  arguments to shells.  Thanks @thinca for reporting this.
+	  arguments to shells.  Thanks to @thinca for reporting this.
 
 0.2.2	2009-03-25T21:17:25+09:00		*fakeclip-changelog-0.2.2*
 	- Add equivalents for the following commands:
 	  |]p|, |]P|, |[p|, |[P|, |i_CTRL-R_CTRL-R|, |i_CTRL-R_CTRL-O|,
 	  |i_CTRL-R_CTRL-P|, |c_CTRL-R_CTRL-R|, |c_CTRL-R_CTRL-O|.
 	- Fix the way to detect the current platform.  For Mac OS X, it
-	  depended on some assumptions.  Thanks for someone who wrote about
+	  depended on some assumptions.  Thanks to someone who wrote about
 	  this bug at the Vim Tips Wiki.
 
 0.2.1	2008-10-24T16:18:32+09:00		*fakeclip-changelog-0.2.1*
