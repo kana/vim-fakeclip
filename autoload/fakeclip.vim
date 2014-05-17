@@ -124,7 +124,7 @@ function! fakeclip#yank(system_type, motion_type)  "{{{2
   let r0 = s:save_register('0')
 
   call s:select_last_motion(a:motion_type)
-  normal! y
+  execute 'normal!' (a:motion_type ==# 'V' ? 'Y' : 'y')
   call s:write_{a:system_type}(@@)
 
   call s:restore_register('0', r0)
