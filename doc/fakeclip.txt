@@ -1,6 +1,6 @@
 *fakeclip.txt*	pseudo clipboard register for non-GUI version of Vim
 
-Version @@VERSION@@
+Version 0.2.10
 Script ID: 2098
 Copyright (C) 2007-2012 Kana Natsuno <http://whileimautomaton.net/>
 License: So-called MIT/X license  {{{
