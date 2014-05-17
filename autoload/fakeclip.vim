@@ -83,7 +83,7 @@ endfunction
 
 function! fakeclip#delete(system_type, motion_type)  "{{{2
   call s:select_last_motion(a:motion_type)
-  execute 'normal!' (a:motion_type == 'V' ? 'D' : 'd')
+  execute 'normal!' (a:motion_type ==# 'V' ? 'D' : 'd')
   call s:write_{a:system_type}(@@)
 endfunction
 
@@ -336,11 +336,11 @@ function! s:select_last_motion(motion_type)  "{{{2
   let orig_selection = &selection
   let &selection = 'inclusive'
 
-  if a:motion_type == 'char'
+  if a:motion_type ==# 'char'
     normal! `[v`]
-  elseif a:motion_type == 'line'
+  elseif a:motion_type ==# 'line'
     normal! '[V']
-  elseif a:motion_type == 'block'
+  elseif a:motion_type ==# 'block'
     execute "normal! `[\<C-v>`]"
   else  " invoked from visual mode
     normal! gv
