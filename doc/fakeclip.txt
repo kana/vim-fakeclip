@@ -224,6 +224,26 @@ VARIABLES					*fakeclip-variables*
 g:fakeclip_no_default_key_mappings
 	See |g:fakeclip_no_default_key_mappings|.
 
+				   *g:fakeclip_provide_clipboard_key_mappings*
+g:fakeclip_provide_clipboard_key_mappings
+	By default, default key mappings to deal with clipboard
+	(see |:FakeclipDefaultKeyMappings| for the details)
+	are defined only for Vim without built-in |+clipboard| support.
+
+	If this variable is defined and set to a non-zero value, the key
+	mappings are defined even if |+clipboard| is supported.
+
+	It is useful for users who want to use clipboard but do not want Vim
+	to be killed when X server is killed.  For example:
+>
+	if !has('gui_running')
+	  " Do not connect to X server.
+	  set clipboard+=exclude:.*
+	  " But I want to use clipboard!
+	  let g:fakeclip_provide_clipboard_key_mappings = 1
+	endif
+<
+
 g:fakeclip_terminal_multiplexer_type	*g:fakeclip_terminal_multiplexer_type*
 	A string to specify your favorite terminal multiplexer.  One of the
 	following values can be specified:
