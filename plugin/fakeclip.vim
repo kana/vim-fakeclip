@@ -1,6 +1,6 @@
 " fakeclip - pseude clipboard register for non-GUI version of Vim
 " Version: 0.2.10
-" Copyright (C) 2007-2012 Kana Natsuno <http://whileimautomaton.net/>
+" Copyright (C) 2007-2014 Kana Natsuno <http://whileimautomaton.net/>
 " License: So-called MIT/X license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
 "     a copy of this software and associated documentation files (the
