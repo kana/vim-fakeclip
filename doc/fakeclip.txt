@@ -1,4 +1,4 @@
-*fakeclip.txt*	pseudo clipboard register for non-GUI version of Vim
+*fakeclip.txt*	Provide pseudo "clipboard" registers
 
 Version 0.3.0
 Script ID: 2098
