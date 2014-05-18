@@ -230,8 +230,10 @@ g:fakeclip_provide_clipboard_key_mappings
 	If this variable is defined and set to a non-zero value, the key
 	mappings are defined even if |+clipboard| is supported.
 
-	It is useful for users who want to use clipboard but do not want Vim
-	to be killed when X server is killed.  For example:
+	Examples:
+
+	(a) This variable is useful for users who want to use clipboard but do
+	not want Vim to be killed when X server is killed.  For example:
 >
 	if !has('gui_running')
 	  " Do not connect to X server.
@@ -239,6 +241,21 @@ g:fakeclip_provide_clipboard_key_mappings
 	  " But I want to use clipboard!
 	  let g:fakeclip_provide_clipboard_key_mappings = 1
 	endif
+<
+	(b) If you use X11/GTK2 version of Vim on Mac OS X, this Vim behaves
+	differently behaves differently with respect to the X11 clipboards
+	depending on whether it is invoked in GUI or non-GUI mode. If you run
+	Vim in a terminal and type "*yy no error occurs but a subsequent "*p
+	reports:
+
+		E353: Nothing in register *
+
+	"+ has the same problem.  In this case, you might want to use Mac OS
+	X's clipboard instead of X11's one in Vim.  If so, add the following
+	into your |vimrc|:
+>
+	let g;fakeclip_provide_clipboard_key_mappings =
+	\ has('macunix') && has('gui_gtk2') && !has('gui_running')
 <
 
 g:fakeclip_terminal_multiplexer_type	*g:fakeclip_terminal_multiplexer_type*
