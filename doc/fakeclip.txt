@@ -286,9 +286,9 @@ g:fakeclip_terminal_multiplexer_type	*g:fakeclip_terminal_multiplexer_type*
 ==============================================================================
 BUGS						*fakeclip-bugs*
 
-(a) This plugin just provide pseudo clipboard register for ordinary editing.
-So |getreg()|, |setreg()|, |expr-register| and other interface on clipboard
-register are not supported.
+(a) This plugin just provide pseudo clipboard registers for interactive text
+editing.  So that |getreg()|, |setreg()|, |expr-register| and other interface
+on clipboard registers are not supported.
 
 (b) The characteristic (i.e., characterwise, linewise or blockwise) of the
 clipboard content is not remembered.  It will be linewise if each line of the
