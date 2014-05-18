@@ -1,4 +1,4 @@
-" fakeclip - pseude clipboard register for non-GUI version of Vim
+" fakeclip - Provide pseudo "clipboard" registers
 " Version: 0.3.0
 " Copyright (C) 2008-2014 Kana Natsuno <http://whileimautomaton.net/>
 " License: MIT license  {{{
