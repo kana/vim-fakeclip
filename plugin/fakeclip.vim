@@ -100,6 +100,73 @@ vnoremap <silent> <Plug>(fakeclip-D)
 \ :<C-u>call fakeclip#delete('clipboard', 'V')<Return>
 
 
+" begin XXX
+if fakeclip#should_distinguish_primary_and_clipboard()
+nnoremap <silent> <Plug>(fakeclip-primary-y)
+\ :<C-u>set operatorfunc=fakeclip#primary_yank<Return>g@
+vnoremap <silent> <Plug>(fakeclip-primary-y)
+\ :<C-u>call fakeclip#yank('primary', visualmode())<Return>
+nnoremap <silent> <Plug>(fakeclip-primary-Y)
+\ :<C-u>call fakeclip#yank_Y('primary')<Return>
+vnoremap <silent> <Plug>(fakeclip-primary-Y)
+\ :<C-u>call fakeclip#yank('primary', 'V')<Return>
+
+nnoremap <silent> <Plug>(fakeclip-primary-p)
+\ :<C-u>call fakeclip#put('primary', '', 'p')<Return>
+nnoremap <silent> <Plug>(fakeclip-primary-P)
+\ :<C-u>call fakeclip#put('primary', '', 'P')<Return>
+nnoremap <silent> <Plug>(fakeclip-primary-gp)
+\ :<C-u>call fakeclip#put('primary', '', 'gp')<Return>
+nnoremap <silent> <Plug>(fakeclip-primary-gP)
+\ :<C-u>call fakeclip#put('primary', '', 'gP')<Return>
+nnoremap <silent> <Plug>(fakeclip-primary-]p)
+\ :<C-u>call fakeclip#put('primary', '', ']p')<Return>
+nnoremap <silent> <Plug>(fakeclip-primary-]P)
+\ :<C-u>call fakeclip#put('primary', '', ']P')<Return>
+nnoremap <silent> <Plug>(fakeclip-primary-[p)
+\ :<C-u>call fakeclip#put('primary', '', '[p')<Return>
+nnoremap <silent> <Plug>(fakeclip-primary-[P)
+\ :<C-u>call fakeclip#put('primary', '', '[P')<Return>
+vnoremap <silent> <Plug>(fakeclip-primary-p)
+\ :<C-u>call fakeclip#put('primary', visualmode(), 'p')<Return>
+vnoremap <silent> <Plug>(fakeclip-primary-P)
+\ :<C-u>call fakeclip#put('primary', visualmode(), 'P')<Return>
+vnoremap <silent> <Plug>(fakeclip-primary-gp)
+\ :<C-u>call fakeclip#put('primary', visualmode(), 'gp')<Return>
+vnoremap <silent> <Plug>(fakeclip-primary-gP)
+\ :<C-u>call fakeclip#put('primary', visualmode(), 'gP')<Return>
+vnoremap <silent> <Plug>(fakeclip-primary-]p)
+\ :<C-u>call fakeclip#put('primary', visualmode(), ']p')<Return>
+vnoremap <silent> <Plug>(fakeclip-primary-]P)
+\ :<C-u>call fakeclip#put('primary', visualmode(), ']P')<Return>
+vnoremap <silent> <Plug>(fakeclip-primary-[p)
+\ :<C-u>call fakeclip#put('primary', visualmode(), '[p')<Return>
+vnoremap <silent> <Plug>(fakeclip-primary-[P)
+\ :<C-u>call fakeclip#put('primary', visualmode(), '[P')<Return>
+
+noremap! <Plug>(fakeclip-primary-insert)
+\ <C-r>=fakeclip#content('primary')<Return>
+noremap! <Plug>(fakeclip-primary-insert-r)
+\ <C-r><C-r>=fakeclip#content('primary')<Return>
+noremap! <Plug>(fakeclip-primary-insert-o)
+\ <C-r><C-o>=fakeclip#content('primary')<Return>
+inoremap <Plug>(fakeclip-primary-insert-p)
+\ <C-r><C-p>=fakeclip#content('primary')<Return>
+
+nnoremap <silent> <Plug>(fakeclip-primary-d)
+\ :<C-u>set operatorfunc=fakeclip#primary_delete<Return>g@
+vnoremap <silent> <Plug>(fakeclip-primary-d)
+\ :<C-u>call fakeclip#delete('primary', visualmode())<Return>
+nnoremap <silent> <Plug>(fakeclip-primary-dd)
+\ :<C-u>set operatorfunc=fakeclip#primary_delete<Return>g@g@
+nnoremap <silent> <Plug>(fakeclip-primary-D)
+\ :<C-u>set operatorfunc=fakeclip#primary_delete<Return>g@$
+vnoremap <silent> <Plug>(fakeclip-primary-D)
+\ :<C-u>call fakeclip#delete('primary', 'V')<Return>
+endif
+" end XXX
+
+
 nnoremap <silent> <Plug>(fakeclip-screen-y)
 \ :<C-u>set operatorfunc=fakeclip#pastebuffer_yank<Return>g@
 vnoremap <silent> <Plug>(fakeclip-screen-y)
@@ -174,40 +241,45 @@ function! s:cmd_FakeclipDefaultKeyMappings(banged_p)
   let modifier = a:banged_p ? '' : '<unique>'
   " Clipboard
   if !has('clipboard') || get(g:, 'fakeclip_provide_clipboard_key_mappings', 0)
-    for _ in ['+', '*']
-      execute 'silent! nmap '.modifier.' "'._.'y  <Plug>(fakeclip-y)'
-      execute 'silent! nmap '.modifier.' "'._.'Y  <Plug>(fakeclip-Y)'
-      execute 'silent! nmap '.modifier.' "'._.'yy  <Plug>(fakeclip-Y)'
-      execute 'silent! vmap '.modifier.' "'._.'y  <Plug>(fakeclip-y)'
-      execute 'silent! vmap '.modifier.' "'._.'Y  <Plug>(fakeclip-Y)'
+    let register_keys = ['*', '+']
+    let l:t = {'*': '', '+': ''}
+    if fakeclip#should_distinguish_primary_and_clipboard()
+	let l:t['*'] = '-primary'
+    endif
+    for _ in register_keys
+      execute 'silent! nmap '.modifier.' "'._.'y  <Plug>(fakeclip'.l:t[_].'-y)'
+      execute 'silent! nmap '.modifier.' "'._.'Y  <Plug>(fakeclip'.l:t[_].'-Y)'
+      execute 'silent! nmap '.modifier.' "'._.'yy  <Plug>(fakeclip'.l:t[_].'-Y)'
+      execute 'silent! vmap '.modifier.' "'._.'y  <Plug>(fakeclip'.l:t[_].'-y)'
+      execute 'silent! vmap '.modifier.' "'._.'Y  <Plug>(fakeclip'.l:t[_].'-Y)'
 
-      execute 'silent! nmap '.modifier.' "'._.'p  <Plug>(fakeclip-p)'
-      execute 'silent! nmap '.modifier.' "'._.'P  <Plug>(fakeclip-P)'
-      execute 'silent! nmap '.modifier.' "'._.'gp  <Plug>(fakeclip-gp)'
-      execute 'silent! nmap '.modifier.' "'._.'gP  <Plug>(fakeclip-gP)'
-      execute 'silent! nmap '.modifier.' "'._.']p  <Plug>(fakeclip-]p)'
-      execute 'silent! nmap '.modifier.' "'._.']P  <Plug>(fakeclip-]P)'
-      execute 'silent! nmap '.modifier.' "'._.'[p  <Plug>(fakeclip-[p)'
-      execute 'silent! nmap '.modifier.' "'._.'[P  <Plug>(fakeclip-[P)'
-      execute 'silent! vmap '.modifier.' "'._.'p  <Plug>(fakeclip-p)'
-      execute 'silent! vmap '.modifier.' "'._.'P  <Plug>(fakeclip-P)'
-      execute 'silent! vmap '.modifier.' "'._.'gp  <Plug>(fakeclip-gp)'
-      execute 'silent! vmap '.modifier.' "'._.'gP  <Plug>(fakeclip-gP)'
-      execute 'silent! vmap '.modifier.' "'._.']p  <Plug>(fakeclip-]p)'
-      execute 'silent! vmap '.modifier.' "'._.']P  <Plug>(fakeclip-]P)'
-      execute 'silent! vmap '.modifier.' "'._.'[p  <Plug>(fakeclip-[p)'
-      execute 'silent! vmap '.modifier.' "'._.'[P  <Plug>(fakeclip-[P)'
+      execute 'silent! nmap '.modifier.' "'._.'p  <Plug>(fakeclip'.l:t[_].'-p)'
+      execute 'silent! nmap '.modifier.' "'._.'P  <Plug>(fakeclip'.l:t[_].'-P)'
+      execute 'silent! nmap '.modifier.' "'._.'gp  <Plug>(fakeclip'.l:t[_].'-gp)'
+      execute 'silent! nmap '.modifier.' "'._.'gP  <Plug>(fakeclip'.l:t[_].'-gP)'
+      execute 'silent! nmap '.modifier.' "'._.']p  <Plug>(fakeclip'.l:t[_].'-]p)'
+      execute 'silent! nmap '.modifier.' "'._.']P  <Plug>(fakeclip'.l:t[_].'-]P)'
+      execute 'silent! nmap '.modifier.' "'._.'[p  <Plug>(fakeclip'.l:t[_].'-[p)'
+      execute 'silent! nmap '.modifier.' "'._.'[P  <Plug>(fakeclip'.l:t[_].'-[P)'
+      execute 'silent! vmap '.modifier.' "'._.'p  <Plug>(fakeclip'.l:t[_].'-p)'
+      execute 'silent! vmap '.modifier.' "'._.'P  <Plug>(fakeclip'.l:t[_].'-P)'
+      execute 'silent! vmap '.modifier.' "'._.'gp  <Plug>(fakeclip'.l:t[_].'-gp)'
+      execute 'silent! vmap '.modifier.' "'._.'gP  <Plug>(fakeclip'.l:t[_].'-gP)'
+      execute 'silent! vmap '.modifier.' "'._.']p  <Plug>(fakeclip'.l:t[_].'-]p)'
+      execute 'silent! vmap '.modifier.' "'._.']P  <Plug>(fakeclip'.l:t[_].'-]P)'
+      execute 'silent! vmap '.modifier.' "'._.'[p  <Plug>(fakeclip'.l:t[_].'-[p)'
+      execute 'silent! vmap '.modifier.' "'._.'[P  <Plug>(fakeclip'.l:t[_].'-[P)'
 
-      execute 'silent! map! '.modifier.' <C-r>'._.'  <Plug>(fakeclip-insert)'
-      execute 'silent! map! '.modifier.' <C-r><C-r>'._.'  <Plug>(fakeclip-insert-r)'
-      execute 'silent! map! '.modifier.' <C-r><C-o>'._.'  <Plug>(fakeclip-insert-o)'
-      execute 'silent! imap '.modifier.' <C-r><C-p>'._.'  <Plug>(fakeclip-insert-p)'
+      execute 'silent! map! '.modifier.' <C-r>'._.'  <Plug>(fakeclip'.l:t[_].'-insert)'
+      execute 'silent! map! '.modifier.' <C-r><C-r>'._.'  <Plug>(fakeclip'.l:t[_].'-insert-r)'
+      execute 'silent! map! '.modifier.' <C-r><C-o>'._.'  <Plug>(fakeclip'.l:t[_].'-insert-o)'
+      execute 'silent! imap '.modifier.' <C-r><C-p>'._.'  <Plug>(fakeclip'.l:t[_].'-insert-p)'
 
-      execute 'silent! nmap '.modifier.' "'._.'d  <Plug>(fakeclip-d)'
-      execute 'silent! vmap '.modifier.' "'._.'d  <Plug>(fakeclip-d)'
-      execute 'silent! nmap '.modifier.' "'._.'dd  <Plug>(fakeclip-dd)'
-      execute 'silent! nmap '.modifier.' "'._.'D  <Plug>(fakeclip-D)'
-      execute 'silent! vmap '.modifier.' "'._.'D  <Plug>(fakeclip-D)'
+      execute 'silent! nmap '.modifier.' "'._.'d  <Plug>(fakeclip'.l:t[_].'-d)'
+      execute 'silent! vmap '.modifier.' "'._.'d  <Plug>(fakeclip'.l:t[_].'-d)'
+      execute 'silent! nmap '.modifier.' "'._.'dd  <Plug>(fakeclip'.l:t[_].'-dd)'
+      execute 'silent! nmap '.modifier.' "'._.'D  <Plug>(fakeclip'.l:t[_].'-D)'
+      execute 'silent! vmap '.modifier.' "'._.'D  <Plug>(fakeclip'.l:t[_].'-D)'
     endfor
   endif
 
