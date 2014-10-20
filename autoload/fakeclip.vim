@@ -21,8 +21,23 @@
 "     TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 "     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 " }}}
-" Platform detection  "{{{1
+" Load once   "{{{1
+if exists("g:loaded_fakeclip_autoload")
+  finish
+endif
+let g:loaded_fakeclip_autoload = 1
 
+let s:save_cpo = &cpo
+set cpo&vim
+
+
+
+
+
+
+
+
+" Platform detection  "{{{1
 if has('macunix') || system('uname') =~? '^darwin'
   let s:PLATFORM = 'mac'
 elseif has('win32unix')
@@ -422,4 +437,7 @@ endfunction
 
 
 " __END__  "{{{1
+let &cpo = s:save_cpo
+
+
 " vim: foldmethod=marker
