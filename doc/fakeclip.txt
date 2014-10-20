@@ -194,7 +194,7 @@ this plugin is loaded (e.g. in your |vimrc|).  You can also use
 |:FakeclipDefaultKeyMappings| to redefine these key mappings.  This command
 doesn't override existing {lhs}s unless [!] is given.
 
-					*fakeclip_x11_primary_selection_notes*
+					*fakeclip-x11-primary-selection-notes*
 NOTE:  On X11 systems, there are actually three distinct "clipboards", or
 X selections, namely the PRIMARY, SECONDARY and CLIPBOARD selections.  To
 emulate Vim's behaviour under X11 (see |quote+|), this plugin uses the "+"
