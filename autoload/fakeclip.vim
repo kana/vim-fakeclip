@@ -196,7 +196,11 @@ endfunction
 
 " Core  "{{{1
 function! s:read_clipboard()  "{{{2
-  return s:read_clipboard_{s:PLATFORM}()
+  if exists('g:fakeclip_read_clipboard_command')
+    return system(g:fakeclip_read_clipboard_command)
+  else
+    return s:read_clipboard_{s:PLATFORM}()
+  endif
 endfunction
 
 
@@ -229,7 +233,11 @@ endfunction
 
 if fakeclip#should_distinguish_primary_and_clipboard()
 function! s:read_primary()  "{{{2
-  return s:read_primary_{s:PLATFORM}()
+  if exists('g:fakeclip_read_primary_command')
+    return system(g:fakeclip_read_primary_command)
+  else
+    return s:read_primary_{s:PLATFORM}()
+  endif
 endfunction
 
 
