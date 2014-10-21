@@ -42,7 +42,7 @@ if has('macunix') || system('uname') =~? '^darwin'
   let s:PLATFORM = 'mac'
 elseif has('win32unix')
   let s:PLATFORM = 'cygwin'
-elseif $DISPLAY != '' && executable('xclip')
+elseif $DISPLAY != '' && ( executable('xclip') || executable('xsel') )
   let s:PLATFORM = 'x'
 else
   let s:PLATFORM = 'unknown'
