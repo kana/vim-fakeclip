@@ -38,14 +38,62 @@ set cpo&vim
 
 
 " Platform detection  "{{{1
+function! s:probe_x_backend_app()  "{{{2
+  " Probe available backends.
+  " Candidate backends in descending order of precedence
+  let l:bcandidates = ['xclip', 'xsel']
+  " Use user-preferred app if it's in candidates
+  if exists('g:fakeclip_preferred_x_clip_app')
+    if executable(g:fakeclip_preferred_x_clip_app) &&
+		\ (count(l:bcandidates, g:fakeclip_preferred_x_clip_app) != 0)
+      return g:fakeclip_preferred_x_clip_app
+    endif
+  endif
+  let l:bexec = ''
+  for l:bc in l:bcandidates
+    if executable(l:bc)
+      let l:bexec = l:bc
+      break
+    endif
+  endfor
+  return l:bexec
+endfunction
+
+
+function! s:configure_x_backend(backend)   "{{{2
+  let l:verbs = ['read', 'write']
+  let l:targets = ['primary', 'clipboard']
+  let l:bconfig = {'xclip': {'targets': {'primary': '-selection primary',
+  \                                      'clipboard': '-selection clipboard'},
+  \                          'verbs': {'read': '-o',
+  \                                    'write': '-i'}},
+  \                'xsel': {'targets': {'primary': '-p',
+  \                                     'clipboard': '-b'},
+  \                         'verbs': {'read': '-o',
+  \                                   'write': '-i'}}}
+  let l:b = l:bconfig[a:backend]
+  for l:v in l:verbs
+    for l:t in l:targets
+      if !exists('g:fakeclip_'.l:v.'_'.l:t.'_command')
+        let g:fakeclip_{l:v}_{l:t}_command =
+		    \ join([a:backend, l:b['verbs'][l:v], l:b['targets'][l:t]])
+      endif
+    endfor
+  endfor
+endfunction
+
+
+let s:PLATFORM = 'unknown'
 if has('macunix') || system('uname') =~? '^darwin'
   let s:PLATFORM = 'mac'
 elseif has('win32unix')
   let s:PLATFORM = 'cygwin'
-elseif $DISPLAY != '' && executable('xclip')
-  let s:PLATFORM = 'x'
-else
-  let s:PLATFORM = 'unknown'
+elseif $DISPLAY != ''
+  let s:XBACKENDEXE = s:probe_x_backend_app()
+  if s:XBACKENDEXE != ''
+    let s:PLATFORM = 'x'
+    call s:configure_x_backend(s:XBACKENDEXE)
+  endif
 endif
 
 
