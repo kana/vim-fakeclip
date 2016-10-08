@@ -47,6 +47,7 @@ version of Vim on the following platforms:
 - Cygwin
 - Mac OS X
 - X Window System (by xclip <http://sourceforge.net/projects/xclip/>)
+- lemonade (<https://github.com/pocke/lemonade>)
 
 
 fakeclip also provides a pseudo register to access a "paste buffer" if one of

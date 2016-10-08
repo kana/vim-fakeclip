@@ -31,6 +31,8 @@ elseif has('win32unix')
   let s:PLATFORM = 'cygwin'
 elseif $DISPLAY != '' && executable('xclip')
   let s:PLATFORM = 'x'
+elseif executable('lemonade')
+  let s:PLATFORM = 'lemonade'
 else
   let s:PLATFORM = 'unknown'
 endif
@@ -185,6 +187,11 @@ function! s:read_clipboard_x()
 endfunction
 
 
+function! s:read_clipboard_lemonade()
+  return system('lemonade paste')
+endfunction
+
+
 function! s:read_clipboard_unknown()
   echoerr 'Getting the clipboard content is not supported on this platform:'
   \       s:PLATFORM
@@ -261,6 +268,12 @@ endfunction
 
 function! s:write_clipboard_x(text)
   call system('xclip', a:text)
+  return
+endfunction
+
+
+function! s:write_clipboard_lemonade(text)
+  call system('lemonade copy', a:text)
   return
 endfunction
 
