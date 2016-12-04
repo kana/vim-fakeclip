@@ -247,8 +247,8 @@ endfunction
 
 
 function! s:write_clipboard_bashwin(text)
-  let a:text = substitute(a:text, "\n", "\r\n", "")
-  call system('clip.exe', a:text)
+  let text = substitute(a:text, "\n", "\r\n", "")
+  call system('clip.exe', text)
   return
 endfunction
 
