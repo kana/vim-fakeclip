@@ -25,7 +25,7 @@
 
 if has('macunix') || system('uname') =~? '^darwin'
   let s:PLATFORM = 'mac'
-elseif system('cat /proc/sys/kernel/osrelease') =~ 'Microsoft'
+elseif system('cat /proc/sys/kernel/osrelease') =~? 'Microsoft'
   let s:PLATFORM = 'bashwin'
 elseif has('win32unix')
   let s:PLATFORM = 'cygwin'
@@ -166,7 +166,7 @@ endfunction
 
 function! s:read_clipboard_bashwin()
   let text = system('powershell.exe -Command Get-Clipboard')
-  let text = substitute(text, "\r", "", "g")
+  let text = substitute(text, "\r", '', 'g')
   return text
 endfunction
 
@@ -247,7 +247,7 @@ endfunction
 
 
 function! s:write_clipboard_bashwin(text)
-  let text = substitute(a:text, "\n", "\r\n", "g")
+  let text = substitute(a:text, "\n", "\r\n", 'g')
   call system('clip.exe', text)
   return
 endfunction
