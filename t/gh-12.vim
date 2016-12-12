@@ -1,13 +1,4 @@
-runtime! plugin/fakeclip.vim
-call vspec#hint({
-\   'scope': 'fakeclip#_local_variables()',
-\   'sid': 'fakeclip#_sid_prefix()',
-\ })
-
-command! -nargs=0 OnlyForClipboardAvailablePlatform
-\   if Ref('s:PLATFORM') ==# 'unknown'
-\ |   SKIP 'not supported platform'
-\ | end
+runtime! t/helpers/bootstrap.vim
 
 describe '<Plug>(fakeclip-d)'
   before
@@ -40,14 +31,14 @@ describe '<Plug>(fakeclip-d)'
     end
 
     it 'targets a right region if combined with a characterwise motion'
-      OnlyForClipboardAvailablePlatform
+      ExpectedPlatform any
 
       normal 2G"@dw
       Expect Call('s:read_clipboard') ==# 'sed '
     end
 
     it 'targets a right region if combined with a characterwise motion'
-      OnlyForClipboardAvailablePlatform
+      ExpectedPlatform any
 
       normal 3Gvwww"@d
       Expect Call('s:read_clipboard') ==# 'aliqua. Ut e'
@@ -64,14 +55,14 @@ describe '<Plug>(fakeclip-d)'
     end
 
     it 'targets a right region if combined with a characterwise motion'
-      OnlyForClipboardAvailablePlatform
+      ExpectedPlatform any
 
       normal 4G"@dw
       Expect Call('s:read_clipboard') ==# 'ullamco '
     end
 
     it 'targets a right region if combined with a characterwise motion'
-      OnlyForClipboardAvailablePlatform
+      ExpectedPlatform any
 
       normal 5Gvwww"@d
       Expect Call('s:read_clipboard') ==# 'Duis aute irure d'
