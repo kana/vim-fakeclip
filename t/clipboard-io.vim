@@ -4,10 +4,12 @@ call vspec#hint({
 \   'sid': 'fakeclip#_sid_prefix()',
 \ })
 
-command! -nargs=1 Only
-\   if Ref('s:PLATFORM') !=? <q-args>
-\ |   SKIP 'not on the platform'
-\ | end
+command! -nargs=1 Only  call s:Only(<q-args>)
+function! s:Only(expected_platform)
+  if Ref('s:PLATFORM') !=? a:expected_platform
+    SKIP 'not on the platform'
+  endif
+endfunction
 
 describe 'fakeclip'
   context 'on Mac'
