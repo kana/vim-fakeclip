@@ -1,13 +1,4 @@
-runtime! plugin/fakeclip.vim
-call vspec#hint({
-\   'scope': 'fakeclip#_local_variables()',
-\   'sid': 'fakeclip#_sid_prefix()',
-\ })
-
-command! -nargs=0 OnlyForClipboardAvailablePlatform
-\   if Ref('s:PLATFORM') ==# 'unknown'
-\ |   SKIP 'not supported platform'
-\ | end
+runtime! t/helpers/bootstrap.vim
 
 describe '<Plug>(fakeclip-Y)'
   before
@@ -32,7 +23,7 @@ describe '<Plug>(fakeclip-Y)'
 
   context 'in Visual mode'
     it 'yanks text linewise'
-      OnlyForClipboardAvailablePlatform
+      ExpectedPlatform any
 
       normal 4Gvjj"@Y
       Expect Call('s:read_clipboard') ==#
