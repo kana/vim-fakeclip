@@ -10,6 +10,15 @@ describe 'fakeclip'
     end
   end
 
+  context 'on WSL'
+    it 'can read/write the clipboard'
+      ExpectedPlatform WSL
+
+      call Call('s:write_clipboard_wsl', "Foo\nBar\nBaz")
+      Expect Call('s:read_clipboard_wsl') ==# "Foo\nBar\nBaz"
+    end
+  end
+
   context 'on Cygwin'
     it 'can read/write the clipboard'
       ExpectedPlatform Cygwin
