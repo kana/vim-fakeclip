@@ -43,6 +43,7 @@ INTRODUCTION					*fakeclip-introduction*
 several versions of Vim without |+clipboard| support, especially for non-GUI
 version of Vim on the following platforms:
 
+- Bash on Windows (Windows Subsystem for Linux)
 - Cygwin
 - Mac OS X
 - X Window System (by xclip <http://sourceforge.net/projects/xclip/>)
