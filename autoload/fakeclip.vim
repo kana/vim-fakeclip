@@ -21,18 +21,81 @@
 "     TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 "     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 " }}}
-" Platform detection  "{{{1
+" Load once   "{{{1
+if exists("g:loaded_fakeclip_autoload")
+  finish
+endif
+let g:loaded_fakeclip_autoload = 1
 
+let s:save_cpo = &cpo
+set cpo&vim
+
+
+
+
+
+
+
+
+" Platform detection  "{{{1
+function! s:probe_x_backend_app()  "{{{2
+  " Probe available backends.
+  " Candidate backends in descending order of precedence
+  let l:bcandidates = ['xclip', 'xsel']
+  " Use user-preferred app if it's in candidates
+  if exists('g:fakeclip_preferred_x_clip_app')
+    if executable(g:fakeclip_preferred_x_clip_app) &&
+		\ (count(l:bcandidates, g:fakeclip_preferred_x_clip_app) != 0)
+      return g:fakeclip_preferred_x_clip_app
+    endif
+  endif
+  let l:bexec = ''
+  for l:bc in l:bcandidates
+    if executable(l:bc)
+      let l:bexec = l:bc
+      break
+    endif
+  endfor
+  return l:bexec
+endfunction
+
+
+function! s:configure_x_backend(backend)   "{{{2
+  let l:verbs = ['read', 'write']
+  let l:targets = ['primary', 'clipboard']
+  let l:bconfig = {'xclip': {'targets': {'primary': '-selection primary',
+  \                                      'clipboard': '-selection clipboard'},
+  \                          'verbs': {'read': '-o',
+  \                                    'write': '-i'}},
+  \                'xsel': {'targets': {'primary': '-p',
+  \                                     'clipboard': '-b'},
+  \                         'verbs': {'read': '-o',
+  \                                   'write': '-i'}}}
+  let l:b = l:bconfig[a:backend]
+  for l:v in l:verbs
+    for l:t in l:targets
+      if !exists('g:fakeclip_'.l:v.'_'.l:t.'_command')
+        let g:fakeclip_{l:v}_{l:t}_command =
+		    \ join([a:backend, l:b['verbs'][l:v], l:b['targets'][l:t]])
+      endif
+    endfor
+  endfor
+endfunction
+
+
+let s:PLATFORM = 'unknown'
 if has('macunix') || system('uname') =~? '^darwin'
   let s:PLATFORM = 'mac'
 elseif system('cat /proc/sys/kernel/osrelease') =~? 'Microsoft'
   let s:PLATFORM = 'wsl'
 elseif has('win32unix')
   let s:PLATFORM = 'cygwin'
-elseif $DISPLAY != '' && executable('xclip')
-  let s:PLATFORM = 'x'
-else
-  let s:PLATFORM = 'unknown'
+elseif $DISPLAY != ''
+  let s:XBACKENDEXE = s:probe_x_backend_app()
+  if s:XBACKENDEXE != ''
+    let s:PLATFORM = 'x'
+    call s:configure_x_backend(s:XBACKENDEXE)
+  endif
 endif
 
 
@@ -62,6 +125,13 @@ endif
 
 
 " Interface  "{{{1
+function! fakeclip#should_distinguish_primary_and_clipboard()  "{{{2
+    return s:PLATFORM == 'x'
+endfunction
+
+
+
+
 function! fakeclip#clipboard_delete(motion_type)  "{{{2
   return fakeclip#delete('clipboard', a:motion_type)
 endfunction
@@ -72,6 +142,22 @@ endfunction
 function! fakeclip#clipboard_yank(motion_type)  "{{{2
   return fakeclip#yank('clipboard', a:motion_type)
 endfunction
+
+
+
+
+if fakeclip#should_distinguish_primary_and_clipboard()
+function! fakeclip#primary_delete(motion_type)  "{{{2
+  return fakeclip#delete('primary', a:motion_type)
+endfunction
+
+
+
+
+function! fakeclip#primary_yank(motion_type)  "{{{2
+  return fakeclip#yank('primary', a:motion_type)
+endfunction
+endif
 
 
 
@@ -141,9 +227,14 @@ function! fakeclip#yank_Y(system_type)  "{{{2
   if 0 < diff
     execute 'normal!' diff.'j'
   endif
-  execute 'normal' (a:system_type ==# 'clipboard'
-  \                 ? "\<Plug>(fakeclip-Y)"
-  \                 : "\<Plug>(fakeclip-screen-Y)")
+  if a:system_type ==# 'clipboard'
+    let t = ''
+  elseif a:system_type ==# 'primary'
+    let t = '-primary'
+  else
+    let t = '-screen'
+  endif
+  execute 'normal' "\<Plug>(fakeclip".t.'-Y)'
 endfunction
 
 
@@ -155,7 +246,11 @@ endfunction
 
 " Core  "{{{1
 function! s:read_clipboard()  "{{{2
-  return s:read_clipboard_{s:PLATFORM}()
+  if exists('g:fakeclip_read_clipboard_command')
+    return system(g:fakeclip_read_clipboard_command)
+  else
+    return s:read_clipboard_{s:PLATFORM}()
+  endif
 endfunction
 
 
@@ -181,7 +276,7 @@ endfunction
 
 
 function! s:read_clipboard_x()
-  return system('xclip -o')
+  return system('xclip -o -selection clipboard')
 endfunction
 
 
@@ -190,6 +285,23 @@ function! s:read_clipboard_unknown()
   \       s:PLATFORM
   return ''
 endfunction
+
+
+
+if fakeclip#should_distinguish_primary_and_clipboard()
+function! s:read_primary()  "{{{2
+  if exists('g:fakeclip_read_primary_command')
+    return system(g:fakeclip_read_primary_command)
+  else
+    return s:read_primary_{s:PLATFORM}()
+  endif
+endfunction
+
+
+function! s:read_primary_x()
+  return system('xclip -o -selection primary')
+endfunction
+endif
 
 
 
@@ -222,7 +334,7 @@ endfunction
 
 
 function! s:read_pastebuffer_tmux()
-  return system('tmux show-buffer')
+  return system('tmux show-buffer | cat')
 endfunction
 
 
@@ -235,7 +347,11 @@ endfunction
 
 
 function! s:write_clipboard(text)  "{{{2
-  call s:write_clipboard_{s:PLATFORM}(a:text)
+  if exists('g:fakeclip_write_clipboard_command')
+    call system(g:fakeclip_write_clipboard_command, a:text)
+  else
+    call s:write_clipboard_{s:PLATFORM}(a:text)
+  endif
   return
 endfunction
 
@@ -260,7 +376,7 @@ endfunction
 
 
 function! s:write_clipboard_x(text)
-  call system('xclip', a:text)
+  call system('xclip -selection clipboard', a:text)
   return
 endfunction
 
@@ -270,6 +386,26 @@ function! s:write_clipboard_unknown(text)
   \       s:PLATFORM
   return
 endfunction
+
+
+
+
+if fakeclip#should_distinguish_primary_and_clipboard()
+function! s:write_primary(text)  "{{{2
+  if exists('g:fakeclip_write_primary_command')
+    call system(g:fakeclip_write_primary_command, a:text)
+  else
+    call s:write_primary_{s:PLATFORM}(a:text)
+  endif
+  return
+endfunction
+
+
+function! s:write_primary_x(text)
+  call system('xclip -selection primary', a:text)
+  return
+endfunction
+endif
 
 
 
@@ -373,4 +509,7 @@ endfunction
 
 
 " __END__  "{{{1
+let &cpo = s:save_cpo
+
+
 " vim: foldmethod=marker

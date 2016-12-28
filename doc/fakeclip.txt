@@ -114,6 +114,43 @@ KEY MAPPINGS					*fakeclip-key-mappings*
 			clipboard.
 	
 
+[count]<Plug>(fakeclip-primary-y){motion}	*<Plug>(fakeclip-primary-y)*
+[count]<Plug>(fakeclip-primary-Y)		*<Plug>(fakeclip-primary-Y)*
+{Visual}<Plug>(fakeclip-primary-y)		*v_<Plug>(fakeclip-primary-y)*
+{Visual}<Plug>(fakeclip-primary-Y)		*v_<Plug>(fakeclip-primary-Y)*
+			Like |y| or |Y|, but yank into the X primary selection.
+
+[count]<Plug>(fakeclip-primary-d){motion}	*<Plug>(fakeclip-primary-d)*
+[count]<Plug>(fakeclip-primary-dd)		*<Plug>(fakeclip-primary-dd)*
+[count]<Plug>(fakeclip-primary-D)		*<Plug>(fakeclip-primary-D)*
+{Visual}<Plug>(fakeclip-primary-d)		*v_<Plug>(fakeclip-primary-d)*
+{Visual}<Plug>(fakeclip-primary-D)		*v_<Plug>(fakeclip-primary-D)*
+			Like |d|, |dd| or |D|, but cut into the X primary
+			selection.
+
+[count]<Plug>(fakeclip-primary-p)		*<Plug>(fakeclip-primary-p)*
+[count]<Plug>(fakeclip-primary-P)		*<Plug>(fakeclip-primary-P)*
+[count]<Plug>(fakeclip-primary-gp)		*<Plug>(fakeclip-primary-gp)*
+[count]<Plug>(fakeclip-primary-gP)		*<Plug>(fakeclip-primary-gP)*
+[count]<Plug>(fakeclip-primary-]p)		*<Plug>(fakeclip-primary-]p)*
+[count]<Plug>(fakeclip-primary-]P)		*<Plug>(fakeclip-primary-]P)*
+[count]<Plug>(fakeclip-primary-[p)		*<Plug>(fakeclip-primary-[p)*
+[count]<Plug>(fakeclip-primary-[P)		*<Plug>(fakeclip-primary-[P)*
+			Like |p|, |P|, |gp|, |gP|, |]p|, |]P|, |[p| or
+			|[P|, but put from the X primary selection.
+					*c_<Plug>(fakeclip-primary-insert)*
+<Plug>(fakeclip-primary-insert)		*i_<Plug>(fakeclip-primary-insert)*
+					*c_<Plug>(fakeclip-primary-insert-r)*
+<Plug>(fakeclip-primary-insert-r)	*i_<Plug>(fakeclip-primary-insert-r)*
+					*c_<Plug>(fakeclip-primary-insert-o)*
+<Plug>(fakeclip-primary-insert-o)	*i_<Plug>(fakeclip-primary-insert-o)*
+<Plug>(fakeclip-primary-insert-p)	*i_<Plug>(fakeclip-primary-insert-p)*
+			Like |i_CTRL-R|, |i_CTRL-R_CTRL-R|, |i_CTRL-R_CTRL-O|,
+			|i_CTRL-R_CTRL-P|, |c_CTRL-R|, |c_CTRL-R_CTRL-R| or
+			|c_CTRL-R_CTRL-O|, but insert the content of the
+			X primary selection.
+
+
 [count]<Plug>(fakeclip-screen-y){motion}	*<Plug>(fakeclip-screen-y)*
 [count]<Plug>(fakeclip-screen-Y)		*<Plug>(fakeclip-screen-Y)*
 {Visual}<Plug>(fakeclip-screen-y)		*v_<Plug>(fakeclip-screen-y)*
@@ -158,44 +195,56 @@ this plugin is loaded (e.g. in your |vimrc|).  You can also use
 |:FakeclipDefaultKeyMappings| to redefine these key mappings.  This command
 doesn't override existing {lhs}s unless [!] is given.
 
+					*fakeclip-x11-primary-selection-notes*
+NOTE:  On X11 systems, there are actually three distinct "clipboards", or
+X selections, namely the PRIMARY, SECONDARY and CLIPBOARD selections.  To
+emulate Vim's behaviour under X11 (see |quote+|), this plugin uses the "+"
+register for accessing the CLIPBOARD selection, and the "*" register for the
+PRIMARY selection.  On non-X11 systems, the distinction is probably moot.
+Therefore, the fakeclip-primary-* {rhs}s will not be defined, and both the
+"+" and the "*" registers will access the same clipboard.
+
 	modes	{lhs}		{rhs}					~
 	-----	-----------	--------------------------------	~
 	nv	"+y		<Plug>(fakeclip-y)
-	nv	"*y		<Plug>(fakeclip-y)
+	nv	"*y		<Plug>(fakeclip-primary-y)	(X11 only)
 	n	"+yy		<Plug>(fakeclip-Y)
-	n	"*yy		<Plug>(fakeclip-Y)
+	n	"*yy		<Plug>(fakeclip-primary-Y)	(X11 only)
 	nv	"+Y		<Plug>(fakeclip-Y)
-	nv	"*Y		<Plug>(fakeclip-Y)
+	nv	"*Y		<Plug>(fakeclip-primary-Y)	(X11 only)
 	nv	"+d		<Plug>(fakeclip-d)
-	nv	"*d		<Plug>(fakeclip-d)
+	nv	"*d		<Plug>(fakeclip-primary-d)	(X11 only)
 	n	"+dd		<Plug>(fakeclip-dd)
-	n	"*dd		<Plug>(fakeclip-dd)
+	n	"*dd		<Plug>(fakeclip-primary-dd)	(X11 only)
 	nv	"+D		<Plug>(fakeclip-D)
-	nv	"*D		<Plug>(fakeclip-D)
+	nv	"*D		<Plug>(fakeclip-primary-D)	(X11 only)
 	nv	"+p		<Plug>(fakeclip-p)
-	nv	"*p		<Plug>(fakeclip-p)
+	nv	"*p		<Plug>(fakeclip-primary-p)	(X11 only)
 	nv	"+P		<Plug>(fakeclip-P)
-	nv	"*P		<Plug>(fakeclip-P)
+	nv	"*P		<Plug>(fakeclip-primary-P)	(X11 only)
 	nv	"+gp		<Plug>(fakeclip-gp)
-	nv	"*gp		<Plug>(fakeclip-gp)
+	nv	"*gp		<Plug>(fakeclip-primary-gp)	(X11 only)
 	nv	"+gP		<Plug>(fakeclip-gP)
-	nv	"*gP		<Plug>(fakeclip-gP)
+	nv	"*gP		<Plug>(fakeclip-primary-gP)	(X11 only)
 	nv	"+]p		<Plug>(fakeclip-]p)
-	nv	"*]p		<Plug>(fakeclip-]p)
+	nv	"*]p		<Plug>(fakeclip-primary-]p)	(X11 only)
 	nv	"+]P		<Plug>(fakeclip-]P)
-	nv	"*]P		<Plug>(fakeclip-]P)
+	nv	"*]P		<Plug>(fakeclip-primary-]P)	(X11 only)
 	nv	"+[p		<Plug>(fakeclip-[p)
-	nv	"*[p		<Plug>(fakeclip-[p)
+	nv	"*[p		<Plug>(fakeclip-primary-[p)	(X11 only)
 	nv	"+[P		<Plug>(fakeclip-[P)
-	nv	"*[P		<Plug>(fakeclip-[P)
+	nv	"*[P		<Plug>(fakeclip-primary-[P)	(X11 only)
 	ic	<C-r>+		<Plug>(fakeclip-insert)
-	ic	<C-r>*		<Plug>(fakeclip-insert)
+	ic	<C-r>*		<Plug>(fakeclip-primary-insert)	(X11 only)
 	ic	<C-r><C-r>+	<Plug>(fakeclip-insert-r)
-	ic	<C-r><C-r>*	<Plug>(fakeclip-insert-r)
+	ic	<C-r><C-r>*	<Plug>(fakeclip-primary-insert-r)
+								(X11 only)
 	ic	<C-r><C-o>+	<Plug>(fakeclip-insert-o)
-	ic	<C-r><C-o>*	<Plug>(fakeclip-insert-o)
+	ic	<C-r><C-o>*	<Plug>(fakeclip-primary-insert-o)
+								(X11 only)
 	i	<C-r><C-p>+	<Plug>(fakeclip-insert-p)
-	i	<C-r><C-p>*	<Plug>(fakeclip-insert-p)
+	i	<C-r><C-p>*	<Plug>(fakeclip-primary-insert-p)
+								(X11 only)
 	nv	"&y		<Plug>(fakeclip-screen-y)
 	n	"&yy		<Plug>(fakeclip-screen-Y)
 	nv	"&Y		<Plug>(fakeclip-screen-Y)
