@@ -36,4 +36,13 @@ describe 'fakeclip'
       Expect Call('s:read_clipboard_x') ==# "Foo\nBar\nBaz"
     end
   end
+
+  context 'on lemonade'
+    it 'can read/write the clipboard'
+      ExpectedPlatform lemonade
+
+      call Call('s:write_clipboard_lemonade', "Foo\nBar\nBaz")
+      Expect Call('s:read_clipboard_lemonade') ==# "Foo\nBar\nBaz"
+    end
+  end
 end
