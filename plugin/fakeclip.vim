@@ -1,6 +1,6 @@
 " fakeclip - Provide pseudo "clipboard" registers
 " Version: 0.3.0
-" Copyright (C) 2007-2014 Kana Natsuno <http://whileimautomaton.net/>
+" Copyright (C) 2007-2017 Kana Natsuno <http://whileimautomaton.net/>
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
 "     a copy of this software and associated documentation files (the
@@ -26,13 +26,6 @@
 if exists('g:loaded_fakeclip')
   finish
 endif
-
-
-
-
-
-
-
 
 " Key Mappings  "{{{1
 " Interface key mappings  "{{{2
@@ -162,9 +155,6 @@ nnoremap <silent> <Plug>(fakeclip-screen-D)
 vnoremap <silent> <Plug>(fakeclip-screen-D)
 \ :<C-u>call fakeclip#delete('pastebuffer', 'V')<Return>
 
-
-
-
 " Default key mappings  "{{{2
 
 command! -bang -bar -nargs=0 FakeclipDefaultKeyMappings
@@ -251,23 +241,8 @@ if !exists('g:fakeclip_no_default_key_mappings')
   FakeclipDefaultKeyMappings
 endif
 
-
-
-
-
-
-
-
 " Epilogue  "{{{1
-
 let g:loaded_fakeclip = 1
 
-
-
-
-
-
-
-
 " __END__  "{{{1
-" vim: foldmethod=marker foldlevel=0
+" vim: foldmethod=marker foldlevel=0:

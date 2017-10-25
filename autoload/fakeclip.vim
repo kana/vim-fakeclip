@@ -1,6 +1,6 @@
 " fakeclip - Provide pseudo "clipboard" registers
 " Version: 0.3.0
-" Copyright (C) 2008-2014 Kana Natsuno <http://whileimautomaton.net/>
+" Copyright (C) 2008-2017 Kana Natsuno <http://whileimautomaton.net/>
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
 "     a copy of this software and associated documentation files (the
@@ -37,7 +37,6 @@ else
   let s:PLATFORM = 'unknown'
 endif
 
-
 if executable('tmux') && $TMUX != ''
   let g:fakeclip_terminal_multiplexer_type = 'tmux'
 elseif executable('screen') && $STY != ''
@@ -56,34 +55,18 @@ else
   let g:fakeclip_terminal_multiplexer_type = 'unknown'
 endif
 
-
-
-
-
-
-
-
 " Interface  "{{{1
 function! fakeclip#clipboard_delete(motion_type)  "{{{2
   return fakeclip#delete('clipboard', a:motion_type)
 endfunction
 
-
-
-
 function! fakeclip#clipboard_yank(motion_type)  "{{{2
   return fakeclip#yank('clipboard', a:motion_type)
 endfunction
 
-
-
-
 function! fakeclip#content(system_type)  "{{{2
   return s:read_{a:system_type}()
 endfunction
-
-
-
 
 function! fakeclip#delete(system_type, motion_type)  "{{{2
   call s:select_last_motion(a:motion_type)
@@ -91,22 +74,13 @@ function! fakeclip#delete(system_type, motion_type)  "{{{2
   call s:write_{a:system_type}(@@)
 endfunction
 
-
-
-
 function! fakeclip#pastebuffer_delete(motion_type)  "{{{2
   return fakeclip#delete('pastebuffer', a:motion_type)
 endfunction
 
-
-
-
 function! fakeclip#pastebuffer_yank(motion_type)  "{{{2
   return fakeclip#yank('pastebuffer', a:motion_type)
 endfunction
-
-
-
 
 function! fakeclip#put(system_type, motion_type, put_type)  "{{{2
   let r_ = s:save_register('"')
@@ -121,9 +95,6 @@ function! fakeclip#put(system_type, motion_type, put_type)  "{{{2
   endif
 endfunction
 
-
-
-
 function! fakeclip#yank(system_type, motion_type)  "{{{2
   let r0 = s:save_register('0')
 
@@ -133,9 +104,6 @@ function! fakeclip#yank(system_type, motion_type)  "{{{2
 
   call s:restore_register('0', r0)
 endfunction
-
-
-
 
 function! fakeclip#yank_Y(system_type)  "{{{2
   let diff = s:count() - 1
@@ -148,23 +116,14 @@ function! fakeclip#yank_Y(system_type)  "{{{2
   \                 : "\<Plug>(fakeclip-screen-Y)")
 endfunction
 
-
-
-
-
-
-
-
 " Core  "{{{1
 function! s:read_clipboard()  "{{{2
   return s:read_clipboard_{s:PLATFORM}()
 endfunction
 
-
 function! s:read_clipboard_mac()
   return system('pbpaste')
 endfunction
-
 
 function! s:read_clipboard_wsl()
   let text = system('cd $(dirname $(which powershell.exe)) &&
@@ -172,7 +131,6 @@ function! s:read_clipboard_wsl()
   let text = substitute(text, "\r", '', 'g')
   return text
 endfunction
-
 
 function! s:read_clipboard_cygwin()
   let content = ''
@@ -182,16 +140,13 @@ function! s:read_clipboard_cygwin()
   return content[1:]
 endfunction
 
-
 function! s:read_clipboard_x()
   return system('xclip -o')
 endfunction
 
-
 function! s:read_clipboard_lemonade()
   return system('lemonade paste')
 endfunction
-
 
 function! s:read_clipboard_unknown()
   echoerr 'Getting the clipboard content is not supported on this platform:'
@@ -199,13 +154,9 @@ function! s:read_clipboard_unknown()
   return ''
 endfunction
 
-
-
-
 function! s:read_pastebuffer()  "{{{2
   return s:read_pastebuffer_{g:fakeclip_terminal_multiplexer_type}()
 endfunction
-
 
 function! s:read_pastebuffer_gnuscreen()
   let _ = tempname()
@@ -228,31 +179,24 @@ function! s:read_pastebuffer_gnuscreen()
   return content
 endfunction
 
-
 function! s:read_pastebuffer_tmux()
   return system('tmux show-buffer')
 endfunction
-
 
 function! s:read_pastebuffer_unknown()
   echoerr 'Paste buffer is not available'
   return ''
 endfunction
 
-
-
-
 function! s:write_clipboard(text)  "{{{2
   call s:write_clipboard_{s:PLATFORM}(a:text)
   return
 endfunction
 
-
 function! s:write_clipboard_mac(text)
   call system('pbcopy', a:text)
   return
 endfunction
-
 
 function! s:write_clipboard_wsl(text)
   let text = substitute(a:text, "\n", "\r\n", 'g')
@@ -260,24 +204,20 @@ function! s:write_clipboard_wsl(text)
   return
 endfunction
 
-
 function! s:write_clipboard_cygwin(text)
   call writefile(split(a:text, "\x0A", 1), '/dev/clipboard', 'b')
   return
 endfunction
-
 
 function! s:write_clipboard_x(text)
   call system('xclip', a:text)
   return
 endfunction
 
-
 function! s:write_clipboard_lemonade(text)
   call system('lemonade copy', a:text)
   return
 endfunction
-
 
 function! s:write_clipboard_unknown(text)
   echoerr 'Yanking into the clipboard is not supported on this platform:'
@@ -285,14 +225,10 @@ function! s:write_clipboard_unknown(text)
   return
 endfunction
 
-
-
-
 function! s:write_pastebuffer(text)  "{{{2
   let lines = split(a:text, '\n', !0)
   return s:write_pastebuffer_{g:fakeclip_terminal_multiplexer_type}(lines)
 endfunction
-
 
 function! s:write_pastebuffer_gnuscreen(lines)
   let _ = tempname()
@@ -302,7 +238,6 @@ function! s:write_pastebuffer_gnuscreen(lines)
   return
 endfunction
 
-
 function! s:write_pastebuffer_tmux(lines)
   let _ = tempname()
   call writefile(a:lines, _, 'b')
@@ -311,56 +246,33 @@ function! s:write_pastebuffer_tmux(lines)
   return
 endfunction
 
-
 function! s:write_pastebuffer_unknown(lines)
   echoerr 'Paste buffer is not available'
   return
 endfunction
-
-
-
-
-
-
-
 
 " Misc.  "{{{1
 function! fakeclip#_local_variables()  "{{{2
   return s:
 endfunction
 
-
-
-
 function! fakeclip#_sid_prefix()  "{{{2
   nnoremap <SID>  <SID>
   return maparg('<SID>', 'n')
 endfunction
 
-
-
-
 function! s:count()  "{{{2
   return (v:count == v:count1) ? v:count : ''
 endfunction
-
-
-
 
 function! s:restore_register(regname, reginfo)  "{{{2
   call setreg(a:regname, a:reginfo[0], a:reginfo[1])
   return
 endfunction
 
-
-
-
 function! s:save_register(regname)  "{{{2
   return [getreg(a:regname), getregtype(a:regname)]
 endfunction
-
-
-
 
 function! s:select_last_motion(motion_type)  "{{{2
   let orig_selection = &selection
@@ -378,13 +290,6 @@ function! s:select_last_motion(motion_type)  "{{{2
 
   let &selection = orig_selection
 endfunction
-
-
-
-
-
-
-
 
 " __END__  "{{{1
 " vim: foldmethod=marker
