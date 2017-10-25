@@ -25,18 +25,19 @@
 
 if has('macunix') || system('uname') =~? '^darwin'
   let s:PLATFORM = 'mac'
+elseif $DISPLAY != '' && executable('xclip')
+  let s:PLATFORM = 'x'
 elseif system('cat /proc/sys/kernel/osrelease') =~? 'Microsoft'
   let s:PLATFORM = 'wsl'
 elseif has('win32unix')
   let s:PLATFORM = 'cygwin'
-elseif $DISPLAY != '' && executable('xclip')
-  let s:PLATFORM = 'x'
 elseif executable('lemonade')
   let s:PLATFORM = 'lemonade'
 else
   let s:PLATFORM = 'unknown'
 endif
 
+let g:fakeclip_platform=s:PLATFORM
 
 if executable('tmux') && $TMUX != ''
   let g:fakeclip_terminal_multiplexer_type = 'tmux'
@@ -268,7 +269,7 @@ endfunction
 
 
 function! s:write_clipboard_x(text)
-  call system('xclip', a:text)
+  call system('xclip -i -selection clipboard', a:text)
   return
 endfunction
 
