@@ -170,6 +170,7 @@ function! s:read_clipboard_wsl()
   let text = system('cd $(dirname $(which powershell.exe)) &&
                     \ powershell.exe -noprofile -Command Get-Clipboard')
   let text = substitute(text, "\r", '', 'g')
+  let text = substitute(text, '\n$', '', '')
   return text
 endfunction
 
