@@ -38,8 +38,8 @@ else
 endif
 
 " oclip
-if g:clipboard_platform="oclip"
-  let s:PLATFORM="oclip"
+if g:clipboard_platform='oclip'
+  let s:PLATFORM='oclip'
 endif
 
 if executable('tmux') && $TMUX != ''
