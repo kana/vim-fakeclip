@@ -38,7 +38,7 @@ else
 endif
 
 " oclip
-if g:clipboard_platform = 'oclip'
+if g:clipboard_platform == 'oclip'
   let s:PLATFORM = 'oclip'
 endif
 
