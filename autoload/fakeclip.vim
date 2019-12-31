@@ -37,6 +37,10 @@ else
   let s:PLATFORM = 'unknown'
 endif
 
+" oclip
+if g:clipboard_platform="oclip"
+  let s:PLATFORM="oclip"
+endif
 
 if executable('tmux') && $TMUX != ''
   let g:fakeclip_terminal_multiplexer_type = 'tmux'
@@ -192,6 +196,10 @@ function! s:read_clipboard_lemonade()
   return system('lemonade paste')
 endfunction
 
+function! s:read_clipboard_oclip()
+  return system('oclip -o')
+endfunction
+
 
 function! s:read_clipboard_unknown()
   echoerr 'Getting the clipboard content is not supported on this platform:'
@@ -275,6 +283,11 @@ endfunction
 
 function! s:write_clipboard_lemonade(text)
   call system('lemonade copy', a:text)
+  return
+endfunction
+
+function! s:write_clipboard_oclip(text)
+  call system('oclip -i', a:text)
   return
 endfunction
 

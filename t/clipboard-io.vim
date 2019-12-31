@@ -45,4 +45,13 @@ describe 'fakeclip'
       Expect Call('s:read_clipboard_lemonade') ==# "Foo\nBar\nBaz"
     end
   end
+
+  context 'on oclip'
+    it 'can read/write the clipboard'
+      ExpectedPlatform oclip
+
+      call Call('s:write_clipboard_oclip', "Foo\nBar\nBaz")
+      Expect Call('s:read_clipboard_oclip') ==# "Foo\nBar\nBaz"
+    end
+  end
 end
