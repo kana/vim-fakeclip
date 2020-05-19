@@ -1,6 +1,6 @@
 " fakeclip - Provide pseudo "clipboard" registers
-" Version: 0.3.0
-" Copyright (C) 2007-2014 Kana Natsuno <http://whileimautomaton.net/>
+" Version: 0.4.0
+" Copyright (C) 2008-2020 Kana Natsuno <https://whileimautomaton.net/>
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
 "     a copy of this software and associated documentation files (the

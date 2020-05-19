@@ -28,6 +28,15 @@ describe 'fakeclip'
     end
   end
 
+  context 'on wayland'
+    it 'can read/write the clipboard'
+      ExpectedPlatform wayland
+
+      call Call('s:write_clipboard_wayland', "Foo\nBar\nBaz")
+      Expect Call('s:read_clipboard_wayland') ==# "Foo\nBar\nBaz"
+    end
+  end
+
   context 'on X'
     it 'can read/write the clipboard'
       ExpectedPlatform X

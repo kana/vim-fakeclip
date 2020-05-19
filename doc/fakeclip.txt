@@ -1,8 +1,8 @@
 *fakeclip.txt*	Provide pseudo "clipboard" registers
 
-Version 0.3.0
+Version 0.4.0
 Script ID: 2098
-Copyright (C) 2007-2014 Kana Natsuno <http://whileimautomaton.net/>
+Copyright (C) 2008-2020 Kana Natsuno <https://whileimautomaton.net/>
 License: MIT license  {{{
     Permission is hereby granted, free of charge, to any person obtaining
     a copy of this software and associated documentation files (the
@@ -43,11 +43,12 @@ INTRODUCTION					*fakeclip-introduction*
 several versions of Vim without |+clipboard| support, especially for non-GUI
 version of Vim on the following platforms:
 
-- Bash on Windows (Windows Subsystem for Linux)
+- Windows Subsystem for Linux
 - Cygwin
 - Mac OS X
-- X Window System (by xclip <http://sourceforge.net/projects/xclip/>)
-- lemonade (<https://github.com/pocke/lemonade>)
+- X Window System (by xclip https://sourceforge.net/projects/xclip/)
+- Lemonade (https://github.com/pocke/lemonade)
+- Wayland (https://wayland.freedesktop.org/)
 
 
 fakeclip also provides a pseudo register to access a "paste buffer" if one of
@@ -334,6 +335,11 @@ http://developer.apple.com/documentation/CoreFoundation/Reference/CFStringRef/
 
 ==============================================================================
 CHANGELOG					*fakeclip-changelog*
+
+0.4.0	2020-05-20T05:59:45+09:00		*fakeclip-changelog-0.4.0*
+	- Support Windows Subsystem for Linux.
+	- Support Lemonade.
+	- Support Wayland.
 
 0.3.0	2014-05-17T17:34:41+09:00		*fakeclip-changelog-0.3.0*
 	- Add |g:fakeclip_provide_clipboard_key_mappings| for advanced
