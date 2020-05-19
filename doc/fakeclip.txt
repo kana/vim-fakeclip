@@ -1,6 +1,6 @@
 *fakeclip.txt*	Provide pseudo "clipboard" registers
 
-Version 0.3.0
+Version 0.4.0
 Script ID: 2098
 Copyright (C) 2007-2014 Kana Natsuno <http://whileimautomaton.net/>
 License: MIT license  {{{
