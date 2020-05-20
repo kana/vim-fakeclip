@@ -254,7 +254,11 @@ endfunction
 
 
 function! s:write_clipboard(text)  "{{{2
-  call s:write_clipboard_{s:PLATFORM}(a:text)
+  if exists('g:fakeclip_write_clipboard_command')
+    call system(g:fakeclip_write_clipboard_command, a:text)
+  else
+    call s:write_clipboard_{s:PLATFORM}(a:text)
+  endif
   return
 endfunction
 
