@@ -241,7 +241,7 @@ endfunction
 
 
 function! s:read_pastebuffer_tmux()
-  return system('tmux show-buffer')
+  return system('tmux show-buffer | cat')
 endfunction
 
 
