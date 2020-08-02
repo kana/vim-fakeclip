@@ -67,6 +67,16 @@ since version 7.3, fakeclip is still useful to access a "paste buffer".
 
 Requirements:
 - Vim 7.0 or later
+- Add it to $PATH
+	- Bash on Windows
+		- clip.exe
+		- powershell.exe
+	- Mac OS X
+		- pbcopy
+	- Another platforms above the X.org
+		- xclip
+	- lemonade
+		- lemonade
 
 Latest version:
 https://github.com/kana/vim-fakeclip
